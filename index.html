@@ -4,10 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desarrollo Web</title>
+ <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* Estilos para la lista horizontal como botones */
+        .nav-links {
+            list-style: none;      /* Quita los números/marcadores */
+            padding: 0;
+            display: flex;         /* Hace la lista horizontal */
+            gap: 15px;            /* Espacio entre botones */
+            background-color: #eef0f3;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .nav-links li {
+            margin: 0;
+        }
+
+        /* Estilo de cada botón */
+        .nav-links a {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Efecto hover (cuando pasas el mouse) */
+        .nav-links a:hover {
+            background-color: #2980b9;
+        }
+
+        /* Para mantener el número visible si lo deseas */
+        .nav-links a::before {
+            content: attr(data-number) ". ";
+            font-weight: bold;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+        }
+
+        hr {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
 <h1>Sistema de Administración</h1>
 <h2>Plataforma para administrar recursos de la empresa</h2>
+<p>Una <strong>plataforma para administrar recursos de la empresa</strong> es un <em>informático diseñado para integrar y gestionar de manera eficiente los procesos y recursos de una organización como las finanzas, el inventario, el talento humano, las compras, las ventas y la producción.</em> Estas plataformas permiten centralizar la información en una sola base de datos, facilitando la toma de decisiones y mejorando la coordinación entre las diferentes áreas de la empresa.</p>
+
+<nav>
+   <ul class="nav-links">
+        <li><a href="#" data-number="1">Inicio</a></li>
+        <li><a href="#" data-number="2">Quiénes Somos</a></li>
+        <li><a href="#" data-number="3">Productos o Servicios</a></li>
+        <li><a href="#" data-number="4">Contacto</a></li>
+    </ul>
+</nav>
+<section id="inicio">
+        <h2>Inicio</h2>
+        <p>Bienvenido a nuestro sitio web. Somos una empresa comprometida con ofrecer soluciones innovadoras y de calidad para satisfacer las necesidades de nuestros clientes. Nuestro objetivo es brindar productos y servicios confiables, apoyados en la tecnología y la mejora continua, garantizando una experiencia eficiente y profesional.</p>
+    </section>
+
+    <section id="quienes-somos">
+        <h2>Quiénes Somos</h2>
+        <p>Somos una organización dedicada a ofrecer soluciones integrales que contribuyen al crecimiento y desarrollo de nuestros clientes. Contamos con un equipo de profesionales capacitados que trabaja con responsabilidad, compromiso y ética, buscando siempre la excelencia en cada uno de nuestros proyectos y servicios.</p>
+    </section>
+
+    <img src="4M.png" width="200" height="150" alt="empresa4M" 
+
+    <section id="servicios">
+        <h2>Servicios o Productos</h2>
+        <p>Ofrecemos una amplia variedad de productos y servicios diseñados para responder a las necesidades del mercado. Nos especializamos en brindar soluciones tecnológicas, asesoría, soporte y atención personalizada, garantizando calidad, innovación y satisfacción en cada uno de nuestros procesos.</p>
+    </section>
+    <nav>
+        <ol>
+            <li><a href="#" Desarrollo de software>Desarrollo de software</a></li>
+            <li><a href="#" Diseño y desarrollo web>Diseño y desarrollo web</a></li>
+            <li><a href="#" Soluciones en la nube>Soluciones en la nube</a></li>
+            <li><a href="#" Seguridad informática>Seguridad informática</a></li>
+            <li><a href="#" Administración de recursos empresariales>Administración de recursos empresariales</a></li>
+        </ol>
+    </nav>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>Estamos disponibles para atender tus consultas, sugerencias o solicitudes de información. Puedes comunicarte con nosotros a través de nuestros canales de contacto, donde nuestro equipo estará dispuesto a brindarte una atención oportuna y personalizada. Será un placer ayudarte y resolver cualquier inquietud que tengas.</p>
+        <p>Email: contacto@empresa4M.com</p>
+        <p>Teléfono: +593 999 865 054</p>
+    </section>
 <h3>Desarrollado por Mauricio Sisalima con 5 años de experiencia</h3>
 </body>
 </html>
