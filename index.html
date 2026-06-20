@@ -1,149 +1,578 @@
-<DOCTYPE thml>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desarrollo Web</title>
- <style>
-        /* Estilos generales */
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desarrollo Web - Sistema de Administración</title>
+
+    <!-- 1. Bootstrap mediante CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- 2. Estilos CSS3 personalizados -->
+    <style>
+        /* Tipografía y colores personalizados */
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        /* Sombra personalizada para tarjetas */
+        .custom-shadow {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Estilos para la lista horizontal como botones */
-        .nav-links {
-            list-style: none;      /* Quita los números/marcadores */
-            padding: 0;
-            display: flex;         /* Hace la lista horizontal */
-            gap: 15px;            /* Espacio entre botones */
-            background-color: #eef0f3;
-            padding: 10px;
-            border-radius: 8px;
+        .custom-shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Estilo para el encabezado hero */
+        .hero-section {
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+            color: white;
+            padding: 60px 0;
+            border-radius: 0 0 30px 30px;
             margin-bottom: 30px;
         }
 
-        .nav-links li {
-            margin: 0;
+        .hero-section h1 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
-        /* Estilo de cada botón */
-        .nav-links a {
-            display: inline-block;
-            background-color: #3498db;
+        .hero-section .lead {
+            font-weight: 300;
+            color: #d1d9e6;
+        }
+
+        /* Botón personalizado */
+        .btn-primary-custom {
+            background-color: #27ae60;
+            border: none;
             color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        /* Efecto hover (cuando pasas el mouse) */
-        .nav-links a:hover {
-            background-color: #2980b9;
+        .btn-primary-custom:hover {
+            background-color: #1e8449;
+            transform: scale(1.03);
+            color: white;
         }
 
-        /* Para mantener el número visible si lo deseas */
-        .nav-links a::before {
-            content: attr(data-number) ". ";
-            font-weight: bold;
+        /* Estilo para tarjetas de servicios */
+        .card-service {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            height: 100%;
+            transition: all 0.3s ease;
         }
 
-        h1, h2 {
+        .card-service .card-body {
+            padding: 1.8rem 1.5rem;
+        }
+
+        .card-service .card-title {
+            font-weight: 700;
             color: #2c3e50;
+            margin-bottom: 0.75rem;
         }
 
-        hr {
-            margin: 20px 0;
+        .card-service .card-text {
+            color: #5d6d7e;
+            font-size: 0.95rem;
+        }
+
+        .card-service .icon-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #eafaf1;
+            color: #27ae60;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Estilo para el formulario */
+        .form-control-custom {
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control-custom:focus {
+            border-color: #27ae60;
+            box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #27ae60, #1e8449);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+            color: white;
+        }
+
+        /* Estilo para el footer */
+        .footer-custom {
+            background: #1a252f;
+            color: #b0bec5;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .footer-custom a {
+            color: #b0bec5;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-custom a:hover {
+            color: white;
+        }
+
+        /* Estilo para las tarjetas de horario y mapa */
+        .info-card {
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            height: 100%;
+        }
+
+        .info-card .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Estilo para la tabla de horario */
+        .table-custom {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table-custom th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: 600;
+        }
+
+        .table-custom td,
+        .table-custom th {
+            padding: 12px 20px;
+        }
+
+        /* 3. Media Query para pantallas pequeñas (requerida) */
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 40px 0;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .hero-section h1 {
+                font-size: 1.8rem;
+            }
+
+            .btn-primary-custom {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .card-service .card-body {
+                padding: 1.2rem;
+            }
+
+            .footer-custom {
+                border-radius: 20px 20px 0 0;
+                padding: 20px 0;
+            }
+
+            iframe {
+                height: 200px !important;
+            }
         }
     </style>
 </head>
 <body>
-<h1>Sistema de Administración</h1>
-<h2>Plataforma para administrar recursos de la empresa</h2>
-<p>Una <strong>plataforma para administrar recursos de la empresa</strong> es un <em>informático diseñado para integrar y gestionar de manera eficiente los procesos y recursos de una organización como las finanzas, el inventario, el talento humano, las compras, las ventas y la producción.</em> Estas plataformas permiten centralizar la información en una sola base de datos, facilitando la toma de decisiones y mejorando la coordinación entre las diferentes áreas de la empresa.</p>
 
-<nav>
-   <ul class="nav-links">
-        <li><a href="#" data-number="1">Inicio</a></li>
-        <li><a href="#" data-number="2">Quiénes Somos</a></li>
-        <li><a href="#" data-number="3">Productos o Servicios</a></li>
-        <li><a href="#" data-number="4">Contacto</a></li>
-    </ul>
-</nav>
-<section id="inicio">
-        <h2>Inicio</h2>
-        <p>Bienvenido a nuestro sitio web. Somos una empresa comprometida con ofrecer soluciones innovadoras y de calidad para satisfacer las necesidades de nuestros clientes. Nuestro objetivo es brindar productos y servicios confiables, apoyados en la tecnología y la mejora continua, garantizando una experiencia eficiente y profesional.</p>
-    </section>
-
-    <section id="quienes-somos">
-        <h2>Quiénes Somos</h2>
-        <p>Somos una organización dedicada a ofrecer soluciones integrales que contribuyen al crecimiento y desarrollo de nuestros clientes. Contamos con un equipo de profesionales capacitados que trabaja con responsabilidad, compromiso y ética, buscando siempre la excelencia en cada uno de nuestros proyectos y servicios.</p>
-    </section>
-
-    <img src="4M.png" width="200" height="150" alt="empresa4M" 
-
-    <section id="servicios">
-        <h2>Servicios o Productos</h2>
-        <p>Ofrecemos una amplia variedad de productos y servicios diseñados para responder a las necesidades del mercado. Nos especializamos en brindar soluciones tecnológicas, asesoría, soporte y atención personalizada, garantizando calidad, innovación y satisfacción en cada uno de nuestros procesos.</p>
-    </section>
-    <nav>
-        <ol>
-            <li><a href="#" Desarrollo de software>Desarrollo de software</a></li>
-            <li><a href="#" Diseño y desarrollo web>Diseño y desarrollo web</a></li>
-            <li><a href="#" Soluciones en la nube>Soluciones en la nube</a></li>
-            <li><a href="#" Seguridad informática>Seguridad informática</a></li>
-            <li><a href="#" Administración de recursos empresariales>Administración de recursos empresariales</a></li>
-        </ol>
+    <!-- 4. Menú de navegación responsivo con Bootstrap -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-success" href="#">
+                <i class="bi bi-flower1 me-2"></i> Soluciones Digitales
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active fw-semibold" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#quienes-somos">Quiénes Somos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>Estamos disponibles para atender tus consultas, sugerencias o solicitudes de información. Puedes comunicarte con nosotros a través de nuestros canales de contacto, donde nuestro equipo estará dispuesto a brindarte una atención oportuna y personalizada. Será un placer ayudarte y resolver cualquier inquietud que tengas.</p>
-        <p>Email: contacto@empresa4M.com</p>
-        <p>Teléfono: +593 999 865 054</p>
+    <!-- 5. Sección Inicio mejorada -->
+    <section id="inicio" class="hero-section">
+        <div class="container text-center text-md-start">
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <h1 class="display-4 fw-bold">Sistema de Administración</h1>
+                    <p class="lead mb-4 fs-5">
+                        Plataforma para administrar recursos de la empresa de manera eficiente.
+                    </p>
+                    <p class="mb-4">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        Centraliza finanzas, inventario, talento humano y más en un solo lugar.
+                    </p>
+                    <a href="#servicios" class="btn btn-primary-custom">
+                        <i class="bi bi-rocket-takeoff me-2"></i> Conoce más
+                    </a>
+                </div>
+                <div class="col-md-5 mt-4 mt-md-0 text-center">
+                    <img src="https://img.freepik.com/vector-gratis/analistas-negocios-trabajando-juntos-oficina_74855-8651.jpg?w=400"
+                        alt="Equipo trabajando"
+                        class="img-fluid rounded-4 shadow"
+                        style="max-height: 250px; object-fit: cover;" />
+                </div>
+            </div>
+        </div>
     </section>
-<script>
-console.log('Desarrollado por Mauricio Sisalima con 5 años de experiencia');
-</script>
-<form action="/enviar" method="POST">
-    <input type="text" name="nombre" placeholder="Tu nombre">
-<button type="submit">Enviar</button>
-</form>
-<table>
-    <p>Horario laboral</p>
-<tr>
-<th>Días</th>
-<th>Hora</th>
-</tr>
-<tr>
-<td>Lunes a Viernes</td>
-<td>09:00 - 16:00</td>
-</tr>
-</table>
-<iframe 
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.18622589234!2d-79.91785341186143!3d-2.161459169333315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d6d9f20c6ab45%3A0x73f9e5923548ade4!2sFritamoro%20Urdesa!5e0!3m2!1ses-419!2sec!4v1781394136765!5m2!1ses-419!2sec" 
-    width="600" 
-    height="450" 
-    style="border:0;" 
-    allowfullscreen="" 
-    loading="lazy" 
-    referrerpolicy="no-referrer-when-downgrade">
-</iframe>
-<video controls>
-<source src="vhttps://youtu.be/ZK25j2CmLFw?si=V8l1IKJ085DGZPFf" type="video/mp4">
-</video>
+
+    <div class="container">
+
+        <!-- 6. Sección Quiénes Somos -->
+        <section id="quienes-somos" class="my-5">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6">
+                    <img src="4M.png" alt="empresa4M" class="img-fluid rounded-4 shadow-lg" />
+                </div>
+                <div class="col-lg-6">
+                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-3">
+                        <i class="bi bi-people me-1"></i> Nuestra esencia
+                    </span>
+                    <h2 class="fw-bold text-dark" style="font-size: 2.2rem;">Quiénes Somos</h2>
+                    <p class="lead text-muted">
+                        Somos una organización dedicada a ofrecer soluciones integrales que contribuyen al crecimiento y desarrollo de nuestros clientes.
+                    </p>
+                    <p class="text-secondary">
+                        Contamos con un equipo de profesionales capacitados que trabaja con responsabilidad, compromiso y ética, buscando siempre la excelencia en cada uno de nuestros proyectos y servicios.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+                        <div><i class="bi bi-check2-circle text-success me-1"></i> Innovación constante</div>
+                        <div><i class="bi bi-check2-circle text-success me-1"></i> Enfoque humano</div>
+                        <div><i class="bi bi-check2-circle text-success me-1"></i> Resultados medibles</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Sección Servicios con tarjetas de Bootstrap -->
+        <section id="servicios" class="my-5">
+            <div class="text-center mb-5">
+                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-2">
+                    <i class="bi bi-grid-3x3-gap-fill me-1"></i> Nuestra oferta
+                </span>
+                <h2 class="fw-bold display-6">Servicios o Productos</h2>
+                <p class="text-muted col-lg-6 mx-auto">
+                    Ofrecemos una amplia variedad de productos y servicios diseñados para responder a las necesidades del mercado.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Tarjeta 1 -->
+                <div class="col-md-4">
+                    <div class="card card-service custom-shadow text-center">
+                        <div class="card-body">
+                            <div class="icon-circle">
+                                <i class="bi bi-code-square"></i>
+                            </div>
+                            <h5 class="card-title">Desarrollo de Software</h5>
+                            <p class="card-text">
+                                Creamos soluciones de software personalizadas para optimizar tus procesos empresariales.
+                            </p>
+                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="col-md-4">
+                    <div class="card card-service custom-shadow text-center">
+                        <div class="card-body">
+                            <div class="icon-circle">
+                                <i class="bi bi-display"></i>
+                            </div>
+                            <h5 class="card-title">Diseño y Desarrollo Web</h5>
+                            <p class="card-text">
+                                Construimos sitios web modernos, responsivos y optimizados para tu marca.
+                            </p>
+                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="col-md-4">
+                    <div class="card card-service custom-shadow text-center">
+                        <div class="card-body">
+                            <div class="icon-circle">
+                                <i class="bi bi-cloud-arrow-up"></i>
+                            </div>
+                            <h5 class="card-title">Soluciones en la Nube</h5>
+                            <p class="card-text">
+                                Implementamos infraestructura en la nube para escalar tu negocio sin límites.
+                            </p>
+                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 4 -->
+                <div class="col-md-6">
+                    <div class="card card-service custom-shadow text-center">
+                        <div class="card-body">
+                            <div class="icon-circle">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                            <h5 class="card-title">Seguridad Informática</h5>
+                            <p class="card-text">
+                                Protegemos tus sistemas y datos con las mejores prácticas de ciberseguridad.
+                            </p>
+                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 5 -->
+                <div class="col-md-6">
+                    <div class="card card-service custom-shadow text-center">
+                        <div class="card-body">
+                            <div class="icon-circle">
+                                <i class="bi bi-building"></i>
+                            </div>
+                            <h5 class="card-title">Administración de Recursos Empresariales</h5>
+                            <p class="card-text">
+                                Gestiona finanzas, inventario, talento humano y más desde una sola plataforma.
+                            </p>
+                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Sección Contacto -->
+        <section id="contacto" class="my-5">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-3">
+                        <i class="bi bi-chat-dots me-1"></i> Contáctanos
+                    </span>
+                    <h2 class="fw-bold display-6">Contacto</h2>
+                    <p class="text-muted mb-4">
+                        Estamos disponibles para atender tus consultas, sugerencias o solicitudes de información.
+                    </p>
+
+                    <!-- Formulario mejorado -->
+                    <form action="/enviar" method="POST">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label fw-semibold">Nombre completo</label>
+                            <input type="text" class="form-control form-control-custom" id="nombre"
+                                name="nombre" placeholder="Tu nombre" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Correo electrónico</label>
+                            <input type="email" class="form-control form-control-custom" id="email"
+                                name="email" placeholder="ejemplo@correo.com" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="asunto" class="form-label fw-semibold">Asunto</label>
+                            <input type="text" class="form-control form-control-custom" id="asunto"
+                                name="asunto" placeholder="Motivo de tu mensaje" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label fw-semibold">Mensaje</label>
+                            <textarea class="form-control form-control-custom" id="mensaje"
+                                name="mensaje" rows="4" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-submit">
+                            <i class="bi bi-send me-2"></i> Enviar mensaje
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Información de contacto -->
+                <div class="col-lg-6">
+                    <div class="bg-white p-4 rounded-4 shadow-sm h-100">
+                        <h5 class="fw-bold text-dark mb-4"><i class="bi bi-info-circle me-2"></i>Información de contacto</h5>
+
+                        <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-3">
+                            <i class="bi bi-envelope-fill text-success fs-4 me-3"></i>
+                            <div>
+                                <span class="d-block fw-semibold">Correo electrónico</span>
+                                <a href="mailto:contacto@empresa4M.com" class="text-decoration-none text-dark">
+                                    contacto@empresa4M.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-3">
+                            <i class="bi bi-telephone-fill text-success fs-4 me-3"></i>
+                            <div>
+                                <span class="d-block fw-semibold">Teléfono</span>
+                                <span class="text-muted">+593 999 865 054</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-3">
+                            <i class="bi bi-geo-alt-fill text-success fs-4 me-3"></i>
+                            <div>
+                                <span class="d-block fw-semibold">Ubicación</span>
+                                <span class="text-muted">Guayaquil, Ecuador</span>
+                            </div>
+                        </div>
+
+                        <!-- Redes sociales -->
+                        <div class="mt-4">
+                            <span class="d-block fw-semibold mb-3">Síguenos en redes sociales</span>
+                            <div class="d-flex gap-3">
+                                <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="bi bi-facebook fs-5"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="bi bi-instagram fs-5"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="bi bi-linkedin fs-5"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="bi bi-youtube fs-5"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Horario laboral y Mapa - Columnas responsivas -->
+        <div class="row g-4 my-5">
+            <div class="col-md-6">
+                <div class="card info-card">
+                    <div class="card-body">
+                        <h5 class="fw-bold text-dark mb-3">
+                            <i class="bi bi-clock-history text-success me-2"></i>Horario laboral
+                        </h5>
+                        <table class="table table-custom table-bordered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Días</th>
+                                    <th>Hora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Lunes a Viernes</td>
+                                    <td>09:00 - 16:00</td>
+                                </tr>
+                                <tr>
+                                    <td>Sábados</td>
+                                    <td>10:00 - 14:00</td>
+                                </tr>
+                                <tr>
+                                    <td>Domingos</td>
+                                    <td>Cerrado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card info-card">
+                    <div class="card-body">
+                        <h5 class="fw-bold text-dark mb-3">
+                            <i class="bi bi-geo-alt text-success me-2"></i>Ubicación
+                        </h5>
+                        <div class="rounded-3 overflow-hidden">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.18622589234!2d-79.91785341186143!3d-2.161459169333315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d6d9f20c6ab45%3A0x73f9e5923548ade4!2sFritamoro%20Urdesa!5e0!3m2!1ses-419!2sec!4v1781394136765!5m2!1ses-419!2sec"
+                                width="100%"
+                                height="250"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            <video controls>
+                            <source src="vhttps://youtu.be/ZK25j2CmLFw?si=V8l1IKJ085DGZPFf" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- Fin container -->
+
+    <!-- 10. Footer -->
+    <footer class="footer-custom">
+        <div class="container text-center">
+            <p class="mb-0">
+                &copy; 2026 <strong>Florecer Capilar</strong> — Desarrollado por Mauricio Sisalima con <i class="bi bi-heart-fill text-danger"></i>
+            </p>
+            <p class="small mt-2">
+                <i class="bi bi-envelope me-1"></i> contacto@empresa4M.com &nbsp;|&nbsp;
+                <i class="bi bi-telephone me-1"></i> +593 999 865 054 &nbsp;|&nbsp;
+                <i class="bi bi-geo-alt me-1"></i> Guayaquil, Ecuador
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <script>
+        console.log('Desarrollado por Mauricio Sisalima con 5 años de experiencia');
+    </script>
+
 </body>
 </html>
