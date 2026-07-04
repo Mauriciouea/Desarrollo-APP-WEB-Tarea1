@@ -1,0 +1,331 @@
+/* ========== TIPOGRAFÍA Y COLORES PERSONALIZADOS ========== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* ========== SOMBRA PERSONALIZADA ========== */
+.custom-shadow {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== HERO SECTION ========== */
+.hero-section {
+    background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+    color: white;
+    padding: 60px 0;
+    border-radius: 0 0 30px 30px;
+    margin-bottom: 30px;
+}
+
+.hero-section h1 {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.hero-section .lead {
+    font-weight: 300;
+    color: #d1d9e6;
+}
+
+/* ========== BOTÓN PERSONALIZADO ========== */
+.btn-primary-custom {
+    background-color: #27ae60;
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary-custom:hover {
+    background-color: #1e8449;
+    transform: scale(1.03);
+    color: white;
+}
+
+/* ========== TARJETAS DE SERVICIOS ========== */
+.card-service {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.card-service .card-body {
+    padding: 1.8rem 1.5rem;
+}
+
+.card-service .card-title {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+}
+
+.card-service .card-text {
+    color: #5d6d7e;
+    font-size: 0.95rem;
+}
+
+.card-service .icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #eafaf1;
+    color: #27ae60;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+/* ========== FORMULARIO ========== */
+.form-control-custom {
+    border-radius: 12px;
+    padding: 12px 16px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control-custom:focus {
+    border-color: #27ae60;
+    box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
+}
+
+/* ========== VALIDACIONES ========== */
+.form-control.is-valid,
+.form-select.is-valid {
+    border-color: #22c55e;
+    background-image: none;
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+    border-color: #ef4444;
+    background-image: none;
+}
+
+.invalid-feedback,
+.valid-feedback {
+    font-size: 0.85rem;
+    margin-top: 6px;
+    display: none;
+}
+
+.invalid-feedback i,
+.valid-feedback i {
+    margin-right: 4px;
+}
+
+/* Contadores de caracteres */
+small.text-muted {
+    font-size: 0.75rem;
+    margin-top: 4px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+small.text-muted.danger {
+    color: #ef4444 !important;
+    font-weight: 600;
+}
+
+small.text-muted.success {
+    color: #22c55e !important;
+    font-weight: 600;
+}
+
+/* ========== REQUISITOS DE CONTRASEÑA ========== */
+#passwordRequisitos div {
+    padding: 3px 0;
+    transition: all 0.3s ease;
+}
+
+#passwordRequisitos div i {
+    margin-right: 6px;
+}
+
+#passwordRequisitos .cumplido {
+    color: #22c55e !important;
+}
+
+#passwordRequisitos .incumplido {
+    color: #ef4444 !important;
+}
+
+/* ========== BOTÓN SUBMIT ========== */
+.btn-submit {
+    background: linear-gradient(135deg, #27ae60, #1e8449);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 50px;
+    transition: opacity 0.3s ease;
+}
+
+.btn-submit:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+/* ========== FOOTER ========== */
+.footer-custom {
+    background: #1a252f;
+    color: #b0bec5;
+    padding: 30px 0;
+    margin-top: 40px;
+    border-radius: 30px 30px 0 0;
+}
+
+.footer-custom a {
+    color: #b0bec5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-custom a:hover {
+    color: white;
+}
+
+/* ========== INFO CARDS ========== */
+.info-card {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    height: 100%;
+}
+
+.info-card .card-body {
+    padding: 1.5rem;
+}
+
+/* ========== TABLA DE HORARIO ========== */
+.table-custom {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-custom th {
+    background-color: #2c3e50;
+    color: white;
+    font-weight: 600;
+}
+
+.table-custom td,
+.table-custom th {
+    padding: 12px 20px;
+}
+
+/* ========== REGISTROS DINÁMICOS ========== */
+.registro-item {
+    border-left: 4px solid #27ae60;
+    transition: all 0.2s ease;
+    animation: slideIn 0.35s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.registro-item:hover {
+    background-color: #f8f9fa;
+}
+
+.registro-item .btn-eliminar {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.1rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.registro-item .btn-eliminar:hover {
+    color: #ef4444;
+    background: #fef2f2;
+}
+
+.badge-categoria {
+    font-size: 0.75rem;
+    padding: 5px 12px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 40px 0;
+        border-radius: 0 0 20px 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .btn-primary-custom {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .card-service .card-body {
+        padding: 1.2rem;
+    }
+
+    .footer-custom {
+        border-radius: 20px 20px 0 0;
+        padding: 20px 0;
+    }
+
+    iframe {
+        height: 200px !important;
+    }
+
+    .registro-item {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 8px;
+    }
+
+    .registro-item .btn-eliminar {
+        align-self: flex-end;
+    }
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c3cfe2;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
