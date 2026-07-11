@@ -5,19 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Desarrollo Web - Sistema de Administración</title>
 
-    <!-- 1. Bootstrap mediante CDN -->
+    <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Font Awesome para íconos -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-
-    <!-- 2. Estilos CSS3 personalizados -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ========================================== -->
-    <!-- 4. Menú de navegación mejorado con autenticación -->
-    <!-- ========================================== -->
+    <!-- ============================================================ -->
+    <!-- ========== SECCIÓN: ENCABEZADO / HEADER ========== -->
+    <!-- ============================================================ -->
+    <!-- 🔹 Esta sección podría convertirse en base.html (bloque header) -->
+    <!-- ============================================================ -->
+    <header class="bg-success text-white py-3 shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="h4 mb-0">
+                <i class="bi bi-flower1 me-2"></i> Soluciones Digitales (Está sección podría convertirse posteriormente en base.html.)
+            </h1>
+            <div>
+                <span class="badge bg-light text-success" id="fechaActual"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- ========== SECCIÓN: MENÚ DE NAVEGACIÓN ========== -->
+    <!-- ============================================================ -->
+    <!-- 🔹 Esta sección podría convertirse en base.html (bloque nav) -->
+    <!-- ============================================================ -->
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold text-success" href="#">
@@ -70,448 +87,453 @@
         </div>
     </nav>
 
-    <!-- ========================================== -->
-    <!-- 5. Sección Inicio mejorada -->
-    <!-- ========================================== -->
-    <section id="inicio" class="hero-section">
-        <div class="container text-center text-md-start">
-            <div class="row align-items-center">
-                <div class="col-md-7">
-                    <h1 class="display-4 fw-bold">Sistema de Administración</h1>
-                    <p class="lead mb-4 fs-5">
-                        Plataforma para administrar recursos de la empresa de manera eficiente.
-                    </p>
-                    <p class="mb-4">
-                        <i class="bi bi-check-circle-fill text-success me-2"></i>
-                        Centraliza finanzas, inventario, talento humano y más en un solo lugar.
-                    </p>
-                    <a href="#servicios" class="btn btn-primary-custom">
-                        <i class="bi bi-rocket-takeoff me-2"></i> Conoce más
-                    </a>
-                </div>
-                <div class="col-md-5 mt-4 mt-md-0 text-center">
-                    <img src="https://img.freepik.com/vector-gratis/analistas-negocios-trabajando-juntos-oficina_74855-8651.jpg?w=400"
-                        alt="Equipo trabajando"
-                        class="img-fluid rounded-4 shadow"
-                        style="max-height: 250px; object-fit: cover;" />
+    <!-- ============================================================ -->
+    <!-- ========== SECCIÓN: CONTENIDO PRINCIPAL ========== -->
+    <!-- ============================================================ -->
+    <!-- 🔹 Esta sección podría convertirse en base.html (bloque content) -->
+    <!-- ============================================================ -->
+    <main>
+
+        <!-- ===== SECCIÓN INICIO (HERO) ===== -->
+        <section id="inicio" class="hero-section">
+            <div class="container text-center text-md-start">
+                <div class="row align-items-center">
+                    <div class="col-md-7">
+                        <h1 class="display-4 fw-bold">Sistema de Administración</h1>
+                        <p class="lead mb-4 fs-5">
+                            Plataforma para administrar recursos de la empresa de manera eficiente.
+                        </p>
+                        <p class="mb-4">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Centraliza finanzas, inventario, talento humano y más en un solo lugar.
+                        </p>
+                        <a href="#servicios" class="btn btn-primary-custom">
+                            <i class="bi bi-rocket-takeoff me-2"></i> Conoce más
+                        </a>
+                    </div>
+                    <div class="col-md-5 mt-4 mt-md-0 text-center">
+                        <img src="https://img.freepik.com/vector-gratis/analistas-negocios-trabajando-juntos-oficina_74855-8651.jpg?w=400"
+                            alt="Equipo trabajando"
+                            class="img-fluid rounded-4 shadow"
+                            style="max-height: 250px; object-fit: cover;" />
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="container">
+        <div class="container">
 
-        <!-- ========================================== -->
-        <!-- 6. Sección Quiénes Somos -->
-        <!-- ========================================== -->
-        <section id="quienes-somos" class="my-5">
-            <div class="row g-4 align-items-center">
-                <div class="col-lg-6">
-                    <img src="4M.png" alt="empresa4M" class="img-fluid rounded-4 shadow-lg" />
+            <!-- ===== SECCIÓN QUIÉNES SOMOS ===== -->
+            <section id="quienes-somos" class="my-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-6">
+                        <img src="4M.png" alt="empresa4M" class="img-fluid rounded-4 shadow-lg" />
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-3">
+                            <i class="bi bi-people me-1"></i> Nuestra esencia
+                        </span>
+                        <h2 class="fw-bold text-dark" style="font-size: 2.2rem;">Quiénes Somos</h2>
+                        <p class="lead text-muted">
+                            Somos una organización dedicada a ofrecer soluciones integrales que contribuyen al crecimiento y desarrollo de nuestros clientes.
+                        </p>
+                        <p class="text-secondary">
+                            Contamos con un equipo de profesionales capacitados que trabaja con responsabilidad, compromiso y ética, buscando siempre la excelencia en cada uno de nuestros proyectos y servicios.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 mt-4">
+                            <div><i class="bi bi-check2-circle text-success me-1"></i> Innovación constante</div>
+                            <div><i class="bi bi-check2-circle text-success me-1"></i> Enfoque humano</div>
+                            <div><i class="bi bi-check2-circle text-success me-1"></i> Resultados medibles</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-3">
-                        <i class="bi bi-people me-1"></i> Nuestra esencia
+            </section>
+
+            <!-- ===== SECCIÓN SERVICIOS (TARJETAS ESTÁTICAS) ===== -->
+            <section id="servicios" class="my-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-2">
+                        <i class="bi bi-grid-3x3-gap-fill me-1"></i> Nuestra oferta
                     </span>
-                    <h2 class="fw-bold text-dark" style="font-size: 2.2rem;">Quiénes Somos</h2>
-                    <p class="lead text-muted">
-                        Somos una organización dedicada a ofrecer soluciones integrales que contribuyen al crecimiento y desarrollo de nuestros clientes.
+                    <h2 class="fw-bold display-6">Servicios o Productos</h2>
+                    <p class="text-muted col-lg-6 mx-auto">
+                        Ofrecemos una amplia variedad de productos y servicios diseñados para responder a las necesidades del mercado.
                     </p>
-                    <p class="text-secondary">
-                        Contamos con un equipo de profesionales capacitados que trabaja con responsabilidad, compromiso y ética, buscando siempre la excelencia en cada uno de nuestros proyectos y servicios.
+                </div>
+
+                <div class="row g-4">
+                    <!-- Tarjeta 1 -->
+                    <div class="col-md-4">
+                        <div class="card card-service custom-shadow text-center">
+                            <div class="card-body">
+                                <div class="icon-circle">
+                                    <i class="bi bi-code-square"></i>
+                                </div>
+                                <h5 class="card-title">Desarrollo de Software</h5>
+                                <p class="card-text">Creamos soluciones de software personalizadas para optimizar tus procesos empresariales.</p>
+                                <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tarjeta 2 -->
+                    <div class="col-md-4">
+                        <div class="card card-service custom-shadow text-center">
+                            <div class="card-body">
+                                <div class="icon-circle">
+                                    <i class="bi bi-display"></i>
+                                </div>
+                                <h5 class="card-title">Diseño y Desarrollo Web</h5>
+                                <p class="card-text">Construimos sitios web modernos, responsivos y optimizados para tu marca.</p>
+                                <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tarjeta 3 -->
+                    <div class="col-md-4">
+                        <div class="card card-service custom-shadow text-center">
+                            <div class="card-body">
+                                <div class="icon-circle">
+                                    <i class="bi bi-cloud-arrow-up"></i>
+                                </div>
+                                <h5 class="card-title">Soluciones en la Nube</h5>
+                                <p class="card-text">Implementamos infraestructura en la nube para escalar tu negocio sin límites.</p>
+                                <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tarjeta 4 -->
+                    <div class="col-md-6">
+                        <div class="card card-service custom-shadow text-center">
+                            <div class="card-body">
+                                <div class="icon-circle">
+                                    <i class="bi bi-shield-lock"></i>
+                                </div>
+                                <h5 class="card-title">Seguridad Informática</h5>
+                                <p class="card-text">Protegemos tus sistemas y datos con las mejores prácticas de ciberseguridad.</p>
+                                <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tarjeta 5 -->
+                    <div class="col-md-6">
+                        <div class="card card-service custom-shadow text-center">
+                            <div class="card-body">
+                                <div class="icon-circle">
+                                    <i class="bi bi-building"></i>
+                                </div>
+                                <h5 class="card-title">Administración de Recursos Empresariales</h5>
+                                <p class="card-text">Gestiona finanzas, inventario, talento humano y más desde una sola plataforma.</p>
+                                <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== SECCIÓN: REGISTROS DINÁMICOS (MEJORADA) ===== -->
+            <!-- ================================================================ -->
+            <section id="registros" class="my-5">
+                <div class="text-center mb-4">
+                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-2">
+                        <i class="bi bi-list-check me-1"></i> Gestión dinámica
+                    </span>
+                    <h2 class="fw-bold display-6">Registro de Servicios</h2>
+                    <p class="text-muted col-lg-6 mx-auto">
+                        Agrega, visualiza y elimina servicios de manera dinámica sin recargar la página.
                     </p>
-                    <div class="d-flex flex-wrap gap-3 mt-4">
-                        <div><i class="bi bi-check2-circle text-success me-1"></i> Innovación constante</div>
-                        <div><i class="bi bi-check2-circle text-success me-1"></i> Enfoque humano</div>
-                        <div><i class="bi bi-check2-circle text-success me-1"></i> Resultados medibles</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- 7. Sección Servicios -->
-        <!-- ========================================== -->
-        <section id="servicios" class="my-5">
-            <div class="text-center mb-5">
-                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-2">
-                    <i class="bi bi-grid-3x3-gap-fill me-1"></i> Nuestra oferta
-                </span>
-                <h2 class="fw-bold display-6">Servicios o Productos</h2>
-                <p class="text-muted col-lg-6 mx-auto">
-                    Ofrecemos una amplia variedad de productos y servicios diseñados para responder a las necesidades del mercado.
-                </p>
-            </div>
-
-            <div class="row g-4">
-                <!-- Tarjetas de servicios (igual que antes) -->
-                <div class="col-md-4">
-                    <div class="card card-service custom-shadow text-center">
-                        <div class="card-body">
-                            <div class="icon-circle">
-                                <i class="bi bi-code-square"></i>
-                            </div>
-                            <h5 class="card-title">Desarrollo de Software</h5>
-                            <p class="card-text">
-                                Creamos soluciones de software personalizadas para optimizar tus procesos empresariales.
-                            </p>
-                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-service custom-shadow text-center">
-                        <div class="card-body">
-                            <div class="icon-circle">
-                                <i class="bi bi-display"></i>
-                            </div>
-                            <h5 class="card-title">Diseño y Desarrollo Web</h5>
-                            <p class="card-text">
-                                Construimos sitios web modernos, responsivos y optimizados para tu marca.
-                            </p>
-                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-service custom-shadow text-center">
-                        <div class="card-body">
-                            <div class="icon-circle">
-                                <i class="bi bi-cloud-arrow-up"></i>
-                            </div>
-                            <h5 class="card-title">Soluciones en la Nube</h5>
-                            <p class="card-text">
-                                Implementamos infraestructura en la nube para escalar tu negocio sin límites.
-                            </p>
-                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card card-service custom-shadow text-center">
-                        <div class="card-body">
-                            <div class="icon-circle">
-                                <i class="bi bi-shield-lock"></i>
-                            </div>
-                            <h5 class="card-title">Seguridad Informática</h5>
-                            <p class="card-text">
-                                Protegemos tus sistemas y datos con las mejores prácticas de ciberseguridad.
-                            </p>
-                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card card-service custom-shadow text-center">
-                        <div class="card-body">
-                            <div class="icon-circle">
-                                <i class="bi bi-building"></i>
-                            </div>
-                            <h5 class="card-title">Administración de Recursos Empresariales</h5>
-                            <p class="card-text">
-                                Gestiona finanzas, inventario, talento humano y más desde una sola plataforma.
-                            </p>
-                            <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-4">Conocer más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- ✨ SECCIÓN: REGISTROS DINÁMICOS (MEJORADA) ✨ -->
-        <!-- ========================================== -->
-        <section id="registros" class="my-5">
-            <div class="text-center mb-4">
-                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-2">
-                    <i class="bi bi-list-check me-1"></i> Gestión dinámica
-                </span>
-                <h2 class="fw-bold display-6">Registro de Servicios</h2>
-                <p class="text-muted col-lg-6 mx-auto">
-                    Agrega, visualiza y elimina servicios de manera dinámica sin recargar la página.
-                </p>
-                <!-- Mensaje de sesión -->
-                <div id="mensajeSesion" class="alert alert-warning mt-3 d-none">
-                    <i class="bi bi-exclamation-triangle-fill"></i> 
-                    <span id="mensajeSesionTexto">Debes iniciar sesión para gestionar servicios.</span>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                <!-- Columna del formulario -->
-                <div class="col-lg-5">
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <h5 class="fw-bold mb-3">
-                                <i class="bi bi-plus-circle text-success me-2"></i>Nuevo registro
-                            </h5>
-                            <form id="formRegistro" novalidate>
-                                <div class="mb-3">
-                                    <label for="nombreServicio" class="form-label fw-semibold">
-                                        Nombre del servicio <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text" class="form-control form-control-custom" id="nombreServicio"
-                                        placeholder="Ej: Consultoría TI" minlength="3" maxlength="50" required />
-                                    <div class="invalid-feedback" id="nombreFeedback">
-                                        <i class="bi bi-exclamation-circle"></i> El nombre debe tener al menos 3 caracteres.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        <i class="bi bi-check-circle"></i> Nombre válido.
-                                    </div>
-                                    <small class="text-muted" id="nombreContador">0 / 50 caracteres</small>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="descripcionServicio" class="form-label fw-semibold">
-                                        Descripción <span class="text-danger">*</span>
-                                    </label>
-                                    <textarea class="form-control form-control-custom" id="descripcionServicio"
-                                        rows="3" placeholder="Breve descripción del servicio..." 
-                                        minlength="10" maxlength="200" required></textarea>
-                                    <div class="invalid-feedback" id="descripcionFeedback">
-                                        <i class="bi bi-exclamation-circle"></i> La descripción debe tener al menos 10 caracteres.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        <i class="bi bi-check-circle"></i> Descripción válida.
-                                    </div>
-                                    <small class="text-muted" id="descripcionContador">0 / 200 caracteres</small>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="categoriaServicio" class="form-label fw-semibold">
-                                        Categoría <span class="text-danger">*</span>
-                                    </label>
-                                    <select class="form-select form-control-custom" id="categoriaServicio" required>
-                                        <option value="">Selecciona una categoría...</option>
-                                        <option value="Desarrollo">💻 Desarrollo</option>
-                                        <option value="Diseño">🎨 Diseño</option>
-                                        <option value="Infraestructura">🏗️ Infraestructura</option>
-                                        <option value="Seguridad">🔒 Seguridad</option>
-                                        <option value="Consultoría">📊 Consultoría</option>
-                                        <option value="Otro">🔹 Otro</option>
-                                    </select>
-                                    <div class="invalid-feedback" id="categoriaFeedback">
-                                        <i class="bi bi-exclamation-circle"></i> Debes seleccionar una categoría.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        <i class="bi bi-check-circle"></i> Categoría seleccionada.
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-submit w-100" id="btnRegistrar">
-                                    <i class="bi bi-plus-circle me-2"></i> Agregar servicio
-                                </button>
-                            </form>
-                            <div id="mensajeValidacion" class="mt-3"></div>
-                            <div id="mensajeExito" class="alert alert-success mt-3 d-none">
-                                <i class="bi bi-check-circle-fill"></i> <span id="mensajeExitoTexto">Servicio registrado correctamente.</span>
-                            </div>
-                        </div>
+                    <!-- Mensaje condicional de sesión -->
+                    <div id="mensajeSesion" class="alert alert-warning mt-3 d-none">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <span id="mensajeSesionTexto">Debes iniciar sesión para gestionar servicios.</span>
                     </div>
                 </div>
 
-                <!-- Columna de la lista de registros -->
-                <div class="col-lg-7">
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="fw-bold mb-0">
-                                    <i class="bi bi-list-ul text-success me-2"></i>Servicios registrados
+                <div class="row g-4">
+                    <!-- Columna del formulario -->
+                    <div class="col-lg-5">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3">
+                                    <i class="bi bi-plus-circle text-success me-2"></i>Nuevo registro
                                 </h5>
-                                <span class="badge bg-success rounded-pill px-3 py-2" id="contadorRegistros">
-                                    Total: 0
-                                </span>
+                                <form id="formRegistro" novalidate>
+                                    <!-- Campo: Nombre -->
+                                    <div class="mb-3">
+                                        <label for="nombreServicio" class="form-label fw-semibold">
+                                            Nombre del servicio <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-custom" id="nombreServicio"
+                                            placeholder="Ej: Consultoría TI" minlength="3" maxlength="50" required />
+                                        <div class="invalid-feedback" id="nombreFeedback">
+                                            <i class="bi bi-exclamation-circle"></i> El nombre debe tener al menos 3 caracteres.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            <i class="bi bi-check-circle"></i> Nombre válido.
+                                        </div>
+                                        <small class="text-muted" id="nombreContador">0 / 50 caracteres</small>
+                                    </div>
+
+                                    <!-- Campo: Descripción -->
+                                    <div class="mb-3">
+                                        <label for="descripcionServicio" class="form-label fw-semibold">
+                                            Descripción <span class="text-danger">*</span>
+                                        </label>
+                                        <textarea class="form-control form-control-custom" id="descripcionServicio"
+                                            rows="3" placeholder="Breve descripción del servicio..."
+                                            minlength="10" maxlength="200" required></textarea>
+                                        <div class="invalid-feedback" id="descripcionFeedback">
+                                            <i class="bi bi-exclamation-circle"></i> La descripción debe tener al menos 10 caracteres.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            <i class="bi bi-check-circle"></i> Descripción válida.
+                                        </div>
+                                        <small class="text-muted" id="descripcionContador">0 / 200 caracteres</small>
+                                    </div>
+
+                                    <!-- Campo: Categoría -->
+                                    <div class="mb-3">
+                                        <label for="categoriaServicio" class="form-label fw-semibold">
+                                            Categoría <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-select form-control-custom" id="categoriaServicio" required>
+                                            <option value="">Selecciona una categoría...</option>
+                                            <option value="Desarrollo">💻 Desarrollo</option>
+                                            <option value="Diseño">🎨 Diseño</option>
+                                            <option value="Infraestructura">🏗️ Infraestructura</option>
+                                            <option value="Seguridad">🔒 Seguridad</option>
+                                            <option value="Consultoría">📊 Consultoría</option>
+                                            <option value="Otro">🔹 Otro</option>
+                                        </select>
+                                        <div class="invalid-feedback" id="categoriaFeedback">
+                                            <i class="bi bi-exclamation-circle"></i> Debes seleccionar una categoría.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            <i class="bi bi-check-circle"></i> Categoría seleccionada.
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-submit w-100" id="btnRegistrar">
+                                        <i class="bi bi-plus-circle me-2"></i> Agregar servicio
+                                    </button>
+                                </form>
+
+                                <!-- Mensaje de validación dinámico -->
+                                <div id="mensajeValidacion" class="mt-3"></div>
+
+                                <!-- Mensaje de éxito condicional -->
+                                <div id="mensajeExito" class="alert alert-success mt-3 d-none">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span id="mensajeExitoTexto">Servicio registrado correctamente.</span>
+                                </div>
                             </div>
-                            <!-- Filtros rápidos -->
-                            <div class="d-flex gap-2 mb-3 flex-wrap">
-                                <button class="btn btn-sm btn-outline-secondary active" data-filtro="todas">Todos</button>
-                                <button class="btn btn-sm btn-outline-secondary" data-filtro="Desarrollo">💻 Desarrollo</button>
-                                <button class="btn btn-sm btn-outline-secondary" data-filtro="Diseño">🎨 Diseño</button>
-                                <button class="btn btn-sm btn-outline-secondary" data-filtro="Seguridad">🔒 Seguridad</button>
-                                <button class="btn btn-sm btn-danger ms-auto" id="btnEliminarTodas">
-                                    <i class="bi bi-trash3"></i> Eliminar Todos
-                                </button>
-                            </div>
-                            <div id="listaRegistros">
-                                <!-- Aquí se renderizarán los registros dinámicamente -->
-                                <div class="text-center text-muted py-4" id="mensajeVacio">
-                                    <i class="bi bi-inbox fs-1 d-block mb-2"></i>
-                                    No hay servicios registrados aún. Agrega uno desde el formulario.
+                        </div>
+                    </div>
+
+                    <!-- Columna de la lista de registros -->
+                    <div class="col-lg-7">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="fw-bold mb-0">
+                                        <i class="bi bi-list-ul text-success me-2"></i>Servicios registrados
+                                    </h5>
+                                    <span class="badge bg-success rounded-pill px-3 py-2" id="contadorRegistros">
+                                        Total: 0
+                                    </span>
+                                </div>
+
+                                <!-- Filtros rápidos -->
+                                <div class="d-flex gap-2 mb-3 flex-wrap">
+                                    <button class="btn btn-sm btn-outline-secondary active" data-filtro="todas">Todos</button>
+                                    <button class="btn btn-sm btn-outline-secondary" data-filtro="Desarrollo">💻 Desarrollo</button>
+                                    <button class="btn btn-sm btn-outline-secondary" data-filtro="Diseño">🎨 Diseño</button>
+                                    <button class="btn btn-sm btn-outline-secondary" data-filtro="Seguridad">🔒 Seguridad</button>
+                                    <button class="btn btn-sm btn-danger ms-auto" id="btnEliminarTodas">
+                                        <i class="bi bi-trash3"></i> Eliminar Todos
+                                    </button>
+                                </div>
+
+                                <!-- ======== CONTENEDOR DINÁMICO DE REGISTROS ======== -->
+                                <div id="listaRegistros">
+                                    <!-- Renderizado dinámico desde JavaScript -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- ========================================== -->
-        <!-- 8. Sección Contacto -->
-        <!-- ========================================== -->
-        <section id="contacto" class="my-5">
-            <div class="row g-5">
-                <div class="col-lg-6">
-                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-3">
-                        <i class="bi bi-chat-dots me-1"></i> Contáctanos
-                    </span>
-                    <h2 class="fw-bold display-6">Contacto</h2>
-                    <p class="text-muted mb-4">
-                        Estamos disponibles para atender tus consultas, sugerencias o solicitudes de información.
-                    </p>
+            <!-- ===== SECCIÓN CONTACTO ===== -->
+            <section id="contacto" class="my-5">
+                <div class="row g-5">
+                    <div class="col-lg-6">
+                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-3">
+                            <i class="bi bi-chat-dots me-1"></i> Contáctanos
+                        </span>
+                        <h2 class="fw-bold display-6">Contacto</h2>
+                        <p class="text-muted mb-4">
+                            Estamos disponibles para atender tus consultas, sugerencias o solicitudes de información.
+                        </p>
 
-                    <form action="/enviar" method="POST">
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label fw-semibold">Nombre completo</label>
-                            <input type="text" class="form-control form-control-custom" id="nombre"
-                                name="nombre" placeholder="Tu nombre" required />
+                        <form action="/enviar" method="POST">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label fw-semibold">Nombre completo</label>
+                                <input type="text" class="form-control form-control-custom" id="nombre"
+                                    name="nombre" placeholder="Tu nombre" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-semibold">Correo electrónico</label>
+                                <input type="email" class="form-control form-control-custom" id="email"
+                                    name="email" placeholder="ejemplo@correo.com" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="asunto" class="form-label fw-semibold">Asunto</label>
+                                <input type="text" class="form-control form-control-custom" id="asunto"
+                                    name="asunto" placeholder="Motivo de tu mensaje" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="mensaje" class="form-label fw-semibold">Mensaje</label>
+                                <textarea class="form-control form-control-custom" id="mensaje"
+                                    name="mensaje" rows="4" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-submit">
+                                <i class="bi bi-send me-2"></i> Enviar mensaje
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Información de contacto -->
+                    <div class="col-lg-6">
+                        <div class="bg-white p-4 rounded-4 shadow-sm h-100">
+                            <h5 class="fw-bold text-dark mb-4"><i class="bi bi-info-circle me-2"></i>Información de contacto</h5>
+
+                            <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-3">
+                                <i class="bi bi-envelope-fill text-success fs-4 me-3"></i>
+                                <div>
+                                    <span class="d-block fw-semibold">Correo electrónico</span>
+                                    <a href="mailto:contacto@empresa4M.com" class="text-decoration-none text-dark">
+                                        contacto@empresa4M.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-3">
+                                <i class="bi bi-telephone-fill text-success fs-4 me-3"></i>
+                                <div>
+                                    <span class="d-block fw-semibold">Teléfono</span>
+                                    <span class="text-muted">+593 999 865 054</span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-3">
+                                <i class="bi bi-geo-alt-fill text-success fs-4 me-3"></i>
+                                <div>
+                                    <span class="d-block fw-semibold">Ubicación</span>
+                                    <span class="text-muted">Guayaquil, Ecuador</span>
+                                </div>
+                            </div>
+
+                            <!-- Redes sociales -->
+                            <div class="mt-4">
+                                <span class="d-block fw-semibold mb-3">Síguenos en redes sociales</span>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="bi bi-facebook fs-5"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="bi bi-instagram fs-5"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="bi bi-linkedin fs-5"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="bi bi-youtube fs-5"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label fw-semibold">Correo electrónico</label>
-                            <input type="email" class="form-control form-control-custom" id="email"
-                                name="email" placeholder="ejemplo@correo.com" required />
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== SECCIÓN HORARIO Y MAPA ===== -->
+            <div class="row g-4 my-5">
+                <div class="col-md-6">
+                    <div class="card info-card">
+                        <div class="card-body">
+                            <h5 class="fw-bold text-dark mb-3">
+                                <i class="bi bi-clock-history text-success me-2"></i>Horario laboral
+                            </h5>
+                            <table class="table table-custom table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Días</th>
+                                        <th>Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Lunes a Viernes</td>
+                                        <td>09:00 - 16:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sábados</td>
+                                        <td>10:00 - 14:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Domingos</td>
+                                        <td>Cerrado</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="mb-3">
-                            <label for="asunto" class="form-label fw-semibold">Asunto</label>
-                            <input type="text" class="form-control form-control-custom" id="asunto"
-                                name="asunto" placeholder="Motivo de tu mensaje" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="mensaje" class="form-label fw-semibold">Mensaje</label>
-                            <textarea class="form-control form-control-custom" id="mensaje"
-                                name="mensaje" rows="4" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-submit">
-                            <i class="bi bi-send me-2"></i> Enviar mensaje
-                        </button>
-                    </form>
+                    </div>
                 </div>
 
-                <!-- Información de contacto -->
-                <div class="col-lg-6">
-                    <div class="bg-white p-4 rounded-4 shadow-sm h-100">
-                        <h5 class="fw-bold text-dark mb-4"><i class="bi bi-info-circle me-2"></i>Información de contacto</h5>
-
-                        <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-3">
-                            <i class="bi bi-envelope-fill text-success fs-4 me-3"></i>
-                            <div>
-                                <span class="d-block fw-semibold">Correo electrónico</span>
-                                <a href="mailto:contacto@empresa4M.com" class="text-decoration-none text-dark">
-                                    contacto@empresa4M.com
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-3">
-                            <i class="bi bi-telephone-fill text-success fs-4 me-3"></i>
-                            <div>
-                                <span class="d-block fw-semibold">Teléfono</span>
-                                <span class="text-muted">+593 999 865 054</span>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-3">
-                            <i class="bi bi-geo-alt-fill text-success fs-4 me-3"></i>
-                            <div>
-                                <span class="d-block fw-semibold">Ubicación</span>
-                                <span class="text-muted">Guayaquil, Ecuador</span>
-                            </div>
-                        </div>
-
-                        <!-- Redes sociales -->
-                        <div class="mt-4">
-                            <span class="d-block fw-semibold mb-3">Síguenos en redes sociales</span>
-                            <div class="d-flex gap-3">
-                                <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
-                                    style="width: 50px; height: 50px;">
-                                    <i class="bi bi-facebook fs-5"></i>
-                                </a>
-                                <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
-                                    style="width: 50px; height: 50px;">
-                                    <i class="bi bi-instagram fs-5"></i>
-                                </a>
-                                <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
-                                    style="width: 50px; height: 50px;">
-                                    <i class="bi bi-linkedin fs-5"></i>
-                                </a>
-                                <a href="#" class="btn btn-outline-success rounded-circle p-3 d-flex align-items-center justify-content-center"
-                                    style="width: 50px; height: 50px;">
-                                    <i class="bi bi-youtube fs-5"></i>
-                                </a>
+                <div class="col-md-6">
+                    <div class="card info-card">
+                        <div class="card-body">
+                            <h5 class="fw-bold text-dark mb-3">
+                                <i class="bi bi-geo-alt text-success me-2"></i>Ubicación
+                            </h5>
+                            <div class="rounded-3 overflow-hidden">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.18622589234!2d-79.91785341186143!3d-2.161459169333315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d6d9f20c6ab45%3A0x73f9e5923548ade4!2sFritamoro%20Urdesa!5e0!3m2!1ses-419!2sec!4v1781394136765!5m2!1ses-419!2sec"
+                                    width="100%"
+                                    height="250"
+                                    style="border:0;"
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                                <video controls class="mt-2 w-100 rounded-3">
+                                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento video.
+                                </video>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- ========================================== -->
-        <!-- 9. Horario laboral y Mapa -->
-        <!-- ========================================== -->
-        <div class="row g-4 my-5">
-            <div class="col-md-6">
-                <div class="card info-card">
-                    <div class="card-body">
-                        <h5 class="fw-bold text-dark mb-3">
-                            <i class="bi bi-clock-history text-success me-2"></i>Horario laboral
-                        </h5>
-                        <table class="table table-custom table-bordered mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Días</th>
-                                    <th>Hora</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Lunes a Viernes</td>
-                                    <td>09:00 - 16:00</td>
-                                </tr>
-                                <tr>
-                                    <td>Sábados</td>
-                                    <td>10:00 - 14:00</td>
-                                </tr>
-                                <tr>
-                                    <td>Domingos</td>
-                                    <td>Cerrado</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+        </div> <!-- Fin container -->
 
-            <div class="col-md-6">
-                <div class="card info-card">
-                    <div class="card-body">
-                        <h5 class="fw-bold text-dark mb-3">
-                            <i class="bi bi-geo-alt text-success me-2"></i>Ubicación
-                        </h5>
-                        <div class="rounded-3 overflow-hidden">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.18622589234!2d-79.91785341186143!3d-2.161459169333315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d6d9f20c6ab45%3A0x73f9e5923548ade4!2sFritamoro%20Urdesa!5e0!3m2!1ses-419!2sec!4v1781394136765!5m2!1ses-419!2sec"
-                                width="100%"
-                                height="250"
-                                style="border:0;"
-                                allowfullscreen=""
-                                loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                            <video controls class="mt-2 w-100 rounded-3">
-                                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                                Tu navegador no soporta el elemento video.
-                            </video>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </main>
 
-    </div> <!-- Fin container -->
-
-    <!-- ========================================== -->
-    <!-- 10. Footer -->
-    <!-- ========================================== -->
+    <!-- ============================================================ -->
+    <!-- ========== SECCIÓN: PIE DE PÁGINA / FOOTER ========== -->
+    <!-- ============================================================ -->
+    <!-- 🔹 Esta sección podría convertirse en base.html (bloque footer) -->
+    <!-- ============================================================ -->
     <footer class="footer-custom">
         <div class="container text-center">
             <p class="mb-0">
-                &copy; 2026 <strong>Florecer Capilar</strong> — Desarrollado por Mauricio Sisalima con <i class="bi bi-heart-fill text-danger"></i>
+                &copy; 2026 <strong>Soluciones Digitales</strong> — Desarrollado por Mauricio Sisalima con <i class="bi bi-heart-fill text-danger"></i>
             </p>
             <p class="small mt-2">
                 <i class="bi bi-envelope me-1"></i> contacto@empresa4M.com &nbsp;|&nbsp;
@@ -521,11 +543,11 @@
         </div>
     </footer>
 
-    <!-- ========================================== -->
-    <!-- MODALES DE AUTENTICACIÓN -->
-    <!-- ========================================== -->
+    <!-- ============================================================ -->
+    <!-- ========== MODALES DE AUTENTICACIÓN ========== -->
+    <!-- ============================================================ -->
 
-    <!-- MODAL: INICIO DE SESIÓN -->
+    <!-- MODAL: LOGIN -->
     <div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -537,16 +559,16 @@
                     <form id="loginForm" novalidate>
                         <div class="mb-3">
                             <label for="loginUsuario" class="form-label fw-semibold">Usuario</label>
-                            <input type="text" class="form-control" id="loginUsuario" 
-                                   placeholder="Ingresa tu nombre de usuario" required>
+                            <input type="text" class="form-control" id="loginUsuario"
+                                placeholder="Ingresa tu nombre de usuario" required>
                             <div class="invalid-feedback" id="loginUsuarioFeedback">
                                 El usuario es obligatorio.
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="loginPassword" class="form-label fw-semibold">Contraseña</label>
-                            <input type="password" class="form-control" id="loginPassword" 
-                                   placeholder="Ingresa tu contraseña" required>
+                            <input type="password" class="form-control" id="loginPassword"
+                                placeholder="Ingresa tu contraseña" required>
                             <div class="invalid-feedback" id="loginPasswordFeedback">
                                 La contraseña es obligatoria.
                             </div>
@@ -556,7 +578,7 @@
                         </button>
                     </form>
                     <div id="loginError" class="alert alert-danger mt-3 d-none">
-                        <i class="bi bi-exclamation-triangle-fill"></i> 
+                        <i class="bi bi-exclamation-triangle-fill"></i>
                         <span id="loginErrorTexto">Usuario o contraseña incorrectos.</span>
                     </div>
                 </div>
@@ -564,7 +586,7 @@
         </div>
     </div>
 
-    <!-- MODAL: REGISTRO DE USUARIO -->
+    <!-- MODAL: REGISTRO -->
     <div class="modal fade" id="modalRegistro" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -574,15 +596,14 @@
                 </div>
                 <div class="modal-body">
                     <form id="registroForm" novalidate>
-                        <!-- Información del Usuario -->
                         <h6 class="fw-bold text-primary"><i class="bi bi-person-badge"></i> Datos de Usuario</h6>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="regUsuario" class="form-label fw-semibold">
                                     Usuario <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" id="regUsuario" 
-                                       placeholder="Nombre de usuario" minlength="3" maxlength="20" required>
+                                <input type="text" class="form-control" id="regUsuario"
+                                    placeholder="Nombre de usuario" minlength="3" maxlength="20" required>
                                 <div class="invalid-feedback" id="regUsuarioFeedback">
                                     El usuario debe tener al menos 3 caracteres.
                                 </div>
@@ -595,8 +616,8 @@
                                 <label for="regEmail" class="form-label fw-semibold">
                                     Correo Electrónico <span class="text-danger">*</span>
                                 </label>
-                                <input type="email" class="form-control" id="regEmail" 
-                                       placeholder="ejemplo@correo.com" required>
+                                <input type="email" class="form-control" id="regEmail"
+                                    placeholder="ejemplo@correo.com" required>
                                 <div class="invalid-feedback" id="regEmailFeedback">
                                     Ingresa un correo electrónico válido.
                                 </div>
@@ -606,15 +627,14 @@
                             </div>
                         </div>
 
-                        <!-- Datos Personales -->
                         <h6 class="fw-bold text-primary mt-3"><i class="bi bi-person-vcard"></i> Datos Personales</h6>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="regNombre" class="form-label fw-semibold">
                                     Nombre Completo <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" id="regNombre" 
-                                       placeholder="Tu nombre completo" minlength="3" required>
+                                <input type="text" class="form-control" id="regNombre"
+                                    placeholder="Tu nombre completo" minlength="3" required>
                                 <div class="invalid-feedback" id="regNombreFeedback">
                                     El nombre debe tener al menos 3 caracteres.
                                 </div>
@@ -626,27 +646,25 @@
                                 <label for="regTelefono" class="form-label fw-semibold">
                                     Teléfono
                                 </label>
-                                <input type="tel" class="form-control" id="regTelefono" 
-                                       placeholder="Número de teléfono (opcional)">
+                                <input type="tel" class="form-control" id="regTelefono"
+                                    placeholder="Número de teléfono (opcional)">
                             </div>
                         </div>
 
-                        <!-- Contraseña -->
                         <h6 class="fw-bold text-primary mt-3"><i class="bi bi-shield-lock"></i> Seguridad</h6>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="regPassword" class="form-label fw-semibold">
                                     Contraseña <span class="text-danger">*</span>
                                 </label>
-                                <input type="password" class="form-control" id="regPassword" 
-                                       placeholder="Mínimo 8 caracteres" minlength="8" required>
+                                <input type="password" class="form-control" id="regPassword"
+                                    placeholder="Mínimo 8 caracteres" minlength="8" required>
                                 <div class="invalid-feedback" id="regPasswordFeedback">
                                     <i class="bi bi-exclamation-circle"></i> La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.
                                 </div>
                                 <div class="valid-feedback">
                                     <i class="bi bi-check-circle"></i> Contraseña segura.
                                 </div>
-                                <!-- Requisitos de contraseña -->
                                 <div id="passwordRequisitos" class="mt-2" style="font-size: 0.85rem;">
                                     <div id="reqLongitud" class="text-muted">
                                         <i class="bi bi-circle"></i> Mínimo 8 caracteres
@@ -666,8 +684,8 @@
                                 <label for="regPasswordConfirm" class="form-label fw-semibold">
                                     Repetir Contraseña <span class="text-danger">*</span>
                                 </label>
-                                <input type="password" class="form-control" id="regPasswordConfirm" 
-                                       placeholder="Repite la contraseña" required>
+                                <input type="password" class="form-control" id="regPasswordConfirm"
+                                    placeholder="Repite la contraseña" required>
                                 <div class="invalid-feedback" id="regPasswordConfirmFeedback">
                                     Las contraseñas no coinciden.
                                 </div>
@@ -677,7 +695,6 @@
                             </div>
                         </div>
 
-                        <!-- Botones -->
                         <div class="d-flex gap-2 mt-3">
                             <button type="submit" class="btn btn-success flex-grow-1">
                                 <i class="bi bi-person-plus"></i> Crear Perfil
@@ -687,9 +704,8 @@
                             </button>
                         </div>
 
-                        <!-- Mensaje de éxito en registro -->
                         <div id="registroExito" class="alert alert-success mt-3 d-none">
-                            <i class="bi bi-check-circle-fill"></i> 
+                            <i class="bi bi-check-circle-fill"></i>
                             <span id="registroExitoTexto">Perfil creado exitosamente. ¡Ya puedes iniciar sesión!</span>
                         </div>
                     </form>
@@ -698,13 +714,12 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- SCRIPTS -->
-    <!-- ========================================== -->
+    <!-- ============================================================ -->
+    <!-- ========== SCRIPTS ========== -->
+    <!-- ============================================================ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
     <script src="1 script.js"></script>
-    <script src="style.css"></script>
-    
+    <script src="style.css"></script>   
 </body>
 </html>

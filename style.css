@@ -1,4 +1,7 @@
-/* ========== TIPOGRAFÍA Y COLORES PERSONALIZADOS ========== */
+
+/* ================================================================
+   ESTILOS GLOBALES
+   ================================================================ */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
@@ -6,7 +9,9 @@ body {
     padding: 0;
 }
 
-/* ========== SOMBRA PERSONALIZADA ========== */
+/* ================================================================
+   SOMBRA PERSONALIZADA
+   ================================================================ */
 .custom-shadow {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -17,7 +22,9 @@ body {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* ========== HERO SECTION ========== */
+/* ================================================================
+   HERO SECTION
+   ================================================================ */
 .hero-section {
     background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
     color: white;
@@ -36,7 +43,9 @@ body {
     color: #d1d9e6;
 }
 
-/* ========== BOTÓN PERSONALIZADO ========== */
+/* ================================================================
+   BOTÓN PERSONALIZADO
+   ================================================================ */
 .btn-primary-custom {
     background-color: #27ae60;
     border: none;
@@ -53,7 +62,9 @@ body {
     color: white;
 }
 
-/* ========== TARJETAS DE SERVICIOS ========== */
+/* ================================================================
+   TARJETAS DE SERVICIOS
+   ================================================================ */
 .card-service {
     border: none;
     border-radius: 20px;
@@ -91,7 +102,9 @@ body {
     margin-bottom: 1rem;
 }
 
-/* ========== FORMULARIO ========== */
+/* ================================================================
+   FORMULARIO
+   ================================================================ */
 .form-control-custom {
     border-radius: 12px;
     padding: 12px 16px;
@@ -104,7 +117,9 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
 }
 
-/* ========== VALIDACIONES ========== */
+/* ================================================================
+   VALIDACIONES DINÁMICAS (Semana 6)
+   ================================================================ */
 .form-control.is-valid,
 .form-select.is-valid {
     border-color: #22c55e;
@@ -147,7 +162,9 @@ small.text-muted.success {
     font-weight: 600;
 }
 
-/* ========== REQUISITOS DE CONTRASEÑA ========== */
+/* ================================================================
+   REQUISITOS DE CONTRASEÑA
+   ================================================================ */
 #passwordRequisitos div {
     padding: 3px 0;
     transition: all 0.3s ease;
@@ -165,7 +182,9 @@ small.text-muted.success {
     color: #ef4444 !important;
 }
 
-/* ========== BOTÓN SUBMIT ========== */
+/* ================================================================
+   BOTÓN SUBMIT
+   ================================================================ */
 .btn-submit {
     background: linear-gradient(135deg, #27ae60, #1e8449);
     border: none;
@@ -181,7 +200,9 @@ small.text-muted.success {
     color: white;
 }
 
-/* ========== FOOTER ========== */
+/* ================================================================
+   FOOTER
+   ================================================================ */
 .footer-custom {
     background: #1a252f;
     color: #b0bec5;
@@ -200,7 +221,9 @@ small.text-muted.success {
     color: white;
 }
 
-/* ========== INFO CARDS ========== */
+/* ================================================================
+   INFO CARDS
+   ================================================================ */
 .info-card {
     border-radius: 16px;
     border: none;
@@ -212,7 +235,9 @@ small.text-muted.success {
     padding: 1.5rem;
 }
 
-/* ========== TABLA DE HORARIO ========== */
+/* ================================================================
+   TABLA DE HORARIO
+   ================================================================ */
 .table-custom {
     border-radius: 12px;
     overflow: hidden;
@@ -229,7 +254,9 @@ small.text-muted.success {
     padding: 12px 20px;
 }
 
-/* ========== REGISTROS DINÁMICOS ========== */
+/* ================================================================
+   REGISTROS DINÁMICOS (Tarjetas / Listas)
+   ================================================================ */
 .registro-item {
     border-left: 4px solid #27ae60;
     transition: all 0.2s ease;
@@ -271,7 +298,24 @@ small.text-muted.success {
     padding: 5px 12px;
 }
 
-/* ========== RESPONSIVE ========== */
+/* ================================================================
+   MENSAJE CONDICIONAL (Sin registros)
+   ================================================================ */
+#mensajeVacio {
+    text-align: center;
+    color: #94a3b8;
+    padding: 30px 0;
+}
+
+#mensajeVacio i {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
 @media (max-width: 576px) {
     .hero-section {
         padding: 40px 0;
@@ -311,7 +355,9 @@ small.text-muted.success {
     }
 }
 
-/* ========== SCROLLBAR ========== */
+/* ================================================================
+   SCROLLBAR
+   ================================================================ */
 ::-webkit-scrollbar {
     width: 6px;
 }
