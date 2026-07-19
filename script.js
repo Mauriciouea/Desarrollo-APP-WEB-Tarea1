@@ -9,6 +9,8 @@
  * ✅ Validaciones dinámicas (Semana 6)
  * ✅ Registro de nuevos datos desde formulario
  * ✅ Filtros por categoría
+ * ✅ Spinner de carga simulado
+ * ✅ Modal de confirmación para eliminar
  */
 
 // ================================================================
@@ -27,6 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const contadorRegistros = document.getElementById('contadorRegistros');
     const mensajeValidacion = document.getElementById('mensajeValidacion');
     const btnEliminarTodas = document.getElementById('btnEliminarTodas');
+    const spinnerRegistro = document.getElementById('spinnerRegistro');
+    const btnRegistrar = document.getElementById('btnRegistrar');
+
+    // Modal de confirmación
+    const modalConfirmacion = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
+    const modalConfirmacionTexto = document.getElementById('modalConfirmacionTexto');
+    const modalConfirmarBtn = document.getElementById('modalConfirmarBtn');
+    let idAEliminar = null;
 
     // ================================================================
     // 3. ARRAY DE OBJETOS (DATOS DEL PROYECTO)
@@ -40,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     let contadorId = registros.length + 1;
-    let filtroActual = 'todas'; // 'todas', 'Desarrollo', 'Diseño', etc.
+    let filtroActual = 'todas';
 
     // ================================================================
     // 4. FUNCIÓN PARA OBTENER COLOR SEGÚN CATEGORÍA
@@ -74,9 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const registrosFiltrados = getRegistrosFiltrados();
         listaRegistros.innerHTML = '';
 
-        // ================================================================
-        // 6a. CONDICIÓN: Mostrar mensaje si no hay registros
-        // ================================================================
         if (registrosFiltrados.length === 0) {
             const mensajeVacio = document.createElement('div');
             mensajeVacio.id = 'mensajeVacio';
@@ -90,19 +97,14 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             listaRegistros.appendChild(mensajeVacio);
         } else {
-            // ================================================================
-            // 6b. ESTRUCTURA REPETITIVA: Recorrer array y crear tarjetas
-            // ================================================================
             registrosFiltrados.forEach((registro, index) => {
                 const item = document.createElement('div');
                 item.className = 'registro-item d-flex justify-content-between align-items-center p-3 mb-2 bg-white rounded-3 shadow-sm';
                 item.dataset.index = index;
 
-                // Contenido
                 const contenido = document.createElement('div');
                 contenido.className = 'flex-grow-1';
 
-                // Nombre con badge de categoría
                 const nombreEl = document.createElement('h6');
                 nombreEl.className = 'fw-bold mb-1';
                 nombreEl.textContent = registro.nombre;
@@ -111,12 +113,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 categoriaEl.className = `badge-categoria badge bg-${getColorCategoria(registro.categoria)} rounded-pill ms-2`;
                 categoriaEl.textContent = registro.categoria;
 
-                // Descripción
                 const descEl = document.createElement('p');
                 descEl.className = 'text-muted small mb-0';
                 descEl.textContent = registro.descripcion || 'Sin descripción';
 
-                // Botón eliminar
                 const btnEliminar = document.createElement('button');
                 btnEliminar.className = 'btn btn-outline-danger btn-sm rounded-circle';
                 btnEliminar.style.width = '36px';
@@ -125,10 +125,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 btnEliminar.setAttribute('aria-label', 'Eliminar registro');
                 btnEliminar.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    eliminarRegistro(registro.id);
+                    idAEliminar = registro.id;
+                    modalConfirmacionTexto.textContent = `¿Estás seguro de eliminar el servicio "${registro.nombre}"?`;
+                    modalConfirmacion.show();
                 });
 
-                // Ensamblar
                 nombreEl.appendChild(categoriaEl);
                 contenido.appendChild(nombreEl);
                 contenido.appendChild(descEl);
@@ -139,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Actualizar contador
         actualizarContador();
     }
 
@@ -149,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function actualizarContador() {
         const total = registros.length;
         contadorRegistros.textContent = `Total: ${total}`;
-        // Animación
         contadorRegistros.style.transition = 'transform 0.2s';
         contadorRegistros.style.transform = 'scale(1.1)';
         setTimeout(() => {
@@ -158,38 +157,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ================================================================
-    // 8. ELIMINAR REGISTRO POR ID
+    // 8. ELIMINAR REGISTRO POR ID (Confirmado por Modal)
     // ================================================================
-    function eliminarRegistro(id) {
-        const registro = registros.find(r => r.id === id);
-        if (!registro) return;
-
-        if (confirm(`¿Estás seguro de eliminar el servicio "${registro.nombre}"?`)) {
-            registros = registros.filter(r => r.id !== id);
+    modalConfirmarBtn.addEventListener('click', function() {
+        if (idAEliminar !== null) {
+            const registro = registros.find(r => r.id === idAEliminar);
+            registros = registros.filter(r => r.id !== idAEliminar);
             renderizarRegistros();
-            mostrarMensaje(`Servicio "${registro.nombre}" eliminado.`, 'success');
+            mostrarMensaje(`✅ Servicio "${registro.nombre}" eliminado.`, 'success');
+            idAEliminar = null;
+            modalConfirmacion.hide();
         }
-    }
+    });
 
     // ================================================================
     // 9. ELIMINAR TODOS LOS REGISTROS
     // ================================================================
     function eliminarTodos() {
         if (registros.length === 0) {
-            mostrarMensaje('No hay registros para eliminar.', 'warning');
+            mostrarMensaje('⚠️ No hay registros para eliminar.', 'warning');
             return;
         }
-
-        if (confirm('¿Estás seguro de eliminar TODOS los servicios?')) {
-            const cantidad = registros.length;
-            registros = [];
-            renderizarRegistros();
-            mostrarMensaje(`Se eliminaron ${cantidad} servicios.`, 'info');
-        }
+        idAEliminar = 'todos';
+        modalConfirmacionTexto.textContent = '¿Estás seguro de eliminar TODOS los servicios? Esta acción no se puede deshacer.';
+        modalConfirmacion.show();
     }
 
     // ================================================================
-    // 10. MOSTRAR MENSAJES DE VALIDACIÓN (CONDICIONAL)
+    // 10. MOSTRAR MENSAJES DE VALIDACIÓN (ALERTAS BOOTSTRAP)
     // ================================================================
     function mostrarMensaje(texto, tipo = 'danger') {
         mensajeValidacion.innerHTML = '';
@@ -201,8 +196,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         `;
         mensajeValidacion.appendChild(alerta);
-
-        // Auto-cerrar después de 4 segundos
         setTimeout(() => {
             const btnClose = alerta.querySelector('.btn-close');
             if (btnClose) btnClose.click();
@@ -210,10 +203,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ================================================================
-    // 11. VALIDACIONES DINÁMICAS EN TIEMPO REAL (Semana 6)
+    // 11. SIMULAR SPINNER DE CARGA
     // ================================================================
+    function mostrarSpinner(mostrar) {
+        if (mostrar) {
+            spinnerRegistro.classList.remove('d-none');
+            btnRegistrar.disabled = true;
+            btnRegistrar.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Guardando...';
+        } else {
+            spinnerRegistro.classList.add('d-none');
+            btnRegistrar.disabled = false;
+            btnRegistrar.innerHTML = '<i class="bi bi-plus-circle me-2"></i> Agregar servicio';
+        }
+    }
 
-    // Validar campo en tiempo real
+    // ================================================================
+    // 12. VALIDACIONES DINÁMICAS EN TIEMPO REAL (Semana 6)
+    // ================================================================
     function validarCampo(input, condicion, feedbackId, mensajeError) {
         const feedback = document.getElementById(feedbackId);
         const valor = input.value.trim();
@@ -234,65 +240,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Validar nombre (mínimo 3 caracteres)
     nombreInput.addEventListener('input', function() {
-        const valido = validarCampo(
-            this,
-            (v) => v.length >= 3,
-            'nombreFeedback',
-            'El nombre debe tener al menos 3 caracteres.'
-        );
-        // Actualizar contador
+        validarCampo(this, (v) => v.length >= 3, 'nombreFeedback', 'El nombre debe tener al menos 3 caracteres.');
         const contador = document.getElementById('nombreContador');
         const len = this.value.length;
         contador.textContent = `${len} / 50 caracteres`;
         contador.className = len >= 3 ? 'text-muted success' : 'text-muted danger';
     });
 
-    // Validar descripción (mínimo 10 caracteres)
     descripcionInput.addEventListener('input', function() {
-        const valido = validarCampo(
-            this,
-            (v) => v.length >= 10,
-            'descripcionFeedback',
-            'La descripción debe tener al menos 10 caracteres.'
-        );
+        validarCampo(this, (v) => v.length >= 10, 'descripcionFeedback', 'La descripción debe tener al menos 10 caracteres.');
         const contador = document.getElementById('descripcionContador');
         const len = this.value.length;
         contador.textContent = `${len} / 200 caracteres`;
         contador.className = len >= 10 ? 'text-muted success' : 'text-muted danger';
     });
 
-    // Validar categoría
     categoriaSelect.addEventListener('change', function() {
-        validarCampo(
-            this,
-            (v) => v !== '',
-            'categoriaFeedback',
-            'Debes seleccionar una categoría.'
-        );
+        validarCampo(this, (v) => v !== '', 'categoriaFeedback', 'Debes seleccionar una categoría.');
     });
 
     // ================================================================
-    // 12. EVENTO SUBMIT DEL FORMULARIO (Registrar nuevo servicio)
+    // 13. EVENTO SUBMIT DEL FORMULARIO
     // ================================================================
     formRegistro.addEventListener('submit', function(event) {
         event.preventDefault();
-
-        // Limpiar mensajes previos
         mensajeValidacion.innerHTML = '';
 
-        // Obtener valores
         const nombre = nombreInput.value.trim();
         const descripcion = descripcionInput.value.trim();
         const categoria = categoriaSelect.value;
 
-        // ================================================================
-        // 13. VALIDACIONES DEL FORMULARIO
-        // ================================================================
         let errores = [];
 
-        // Validar nombre
         if (nombre.length < 3) {
             errores.push('El nombre debe tener al menos 3 caracteres.');
             nombreInput.classList.add('is-invalid');
@@ -301,7 +281,6 @@ document.addEventListener('DOMContentLoaded', function() {
             nombreInput.classList.add('is-valid');
         }
 
-        // Validar descripción
         if (descripcion.length < 10) {
             errores.push('La descripción debe tener al menos 10 caracteres.');
             descripcionInput.classList.add('is-invalid');
@@ -310,7 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
             descripcionInput.classList.add('is-valid');
         }
 
-        // Validar categoría
         if (categoria === '') {
             errores.push('Debes seleccionar una categoría.');
             categoriaSelect.classList.add('is-invalid');
@@ -319,82 +297,82 @@ document.addEventListener('DOMContentLoaded', function() {
             categoriaSelect.classList.add('is-valid');
         }
 
-        // Verificar duplicados (condición adicional)
         const existe = registros.some(r => r.nombre.toLowerCase() === nombre.toLowerCase());
         if (existe && nombre.length >= 3) {
             errores.push(`Ya existe un servicio con el nombre "${nombre}".`);
             nombreInput.classList.add('is-invalid');
         }
 
-        // Si hay errores, mostrar mensaje y salir
         if (errores.length > 0) {
             mostrarMensaje(errores.join('<br>'), 'danger');
             return;
         }
 
-        // ================================================================
-        // 14. CREAR NUEVO REGISTRO (Objeto)
-        // ================================================================
-        const nuevoRegistro = {
-            id: contadorId++,
-            nombre: nombre,
-            descripcion: descripcion,
-            categoria: categoria
-        };
+        // Simular carga con spinner
+        mostrarSpinner(true);
 
-        // Agregar al array
-        registros.push(nuevoRegistro);
+        setTimeout(() => {
+            const nuevoRegistro = {
+                id: contadorId++,
+                nombre: nombre,
+                descripcion: descripcion,
+                categoria: categoria
+            };
 
-        // ================================================================
-        // 15. RENDERIZAR Y LIMPIAR
-        // ================================================================
-        renderizarRegistros();
-        formRegistro.reset();
-        nombreInput.classList.remove('is-valid', 'is-invalid');
-        descripcionInput.classList.remove('is-valid', 'is-invalid');
-        categoriaSelect.classList.remove('is-valid', 'is-invalid');
+            registros.push(nuevoRegistro);
+            renderizarRegistros();
+            formRegistro.reset();
+            nombreInput.classList.remove('is-valid', 'is-invalid');
+            descripcionInput.classList.remove('is-valid', 'is-invalid');
+            categoriaSelect.classList.remove('is-valid', 'is-invalid');
 
-        // Resetear contadores
-        document.getElementById('nombreContador').textContent = '0 / 50 caracteres';
-        document.getElementById('nombreContador').className = 'text-muted';
-        document.getElementById('descripcionContador').textContent = '0 / 200 caracteres';
-        document.getElementById('descripcionContador').className = 'text-muted';
+            document.getElementById('nombreContador').textContent = '0 / 50 caracteres';
+            document.getElementById('nombreContador').className = 'text-muted';
+            document.getElementById('descripcionContador').textContent = '0 / 200 caracteres';
+            document.getElementById('descripcionContador').className = 'text-muted';
 
-        // ================================================================
-        // 16. MENSAJE DE ÉXITO (CONDICIONAL)
-        // ================================================================
-        mostrarMensaje(`✅ Servicio "${nombre}" agregado exitosamente.`, 'success');
-
-        // Scroll suave hasta la lista
-        document.getElementById('registros').scrollIntoView({ behavior: 'smooth', block: 'end' });
+            mostrarSpinner(false);
+            mostrarMensaje(`✅ Servicio "${nombre}" agregado exitosamente.`, 'success');
+            document.getElementById('registros').scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }, 1500);
     });
 
     // ================================================================
-    // 17. FILTROS POR CATEGORÍA
+    // 14. FILTROS POR CATEGORÍA
     // ================================================================
     document.querySelectorAll('[data-filtro]').forEach(btn => {
         btn.addEventListener('click', function() {
-            // Quitar active de todos
             document.querySelectorAll('[data-filtro]').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-
             filtroActual = this.dataset.filtro;
             renderizarRegistros();
         });
     });
 
     // ================================================================
-    // 18. ELIMINAR TODOS
+    // 15. ELIMINAR TODOS (con confirmación modal)
     // ================================================================
     btnEliminarTodas.addEventListener('click', eliminarTodos);
 
+    // Configurar modal para eliminar todos
+    modalConfirmacionBtn.addEventListener('click', function() {
+        if (idAEliminar === 'todos') {
+            const cantidad = registros.length;
+            registros = [];
+            renderizarRegistros();
+            mostrarMensaje(`✅ Se eliminaron ${cantidad} servicios.`, 'info');
+            idAEliminar = null;
+            modalConfirmacion.hide();
+        }
+    });
+
     // ================================================================
-    // 19. RENDERIZADO INICIAL
+    // 16. RENDERIZADO INICIAL
     // ================================================================
     renderizarRegistros();
 
     // ================================================================
-    // 20. MOSTRAR FECHA ACTUAL EN HEADER
+    // 17. MOSTRAR FECHA ACTUAL EN HEADER
     // ================================================================
     const fechaActual = document.getElementById('fechaActual');
     if (fechaActual) {
@@ -406,12 +384,6 @@ document.addEventListener('DOMContentLoaded', function() {
             year: 'numeric'
         });
     }
-
-    // ================================================================
-    // 21. AUTENTICACIÓN SIMULADA (Base para sesión)
-    // ================================================================
-    // (Manteniendo la estructura de autenticación del código original)
-    // ... (Se mantiene el código de autenticación existente)
 
     console.log('✅ Sistema de Administración cargado correctamente.');
     console.log(`📊 Total de registros: ${registros.length}`);

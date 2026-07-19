@@ -17,12 +17,10 @@
     <!-- ============================================================ -->
     <!-- ========== SECCIÓN: ENCABEZADO / HEADER ========== -->
     <!-- ============================================================ -->
-    <!-- 🔹 Esta sección podría convertirse en base.html (bloque header) -->
-    <!-- ============================================================ -->
     <header class="bg-success text-white py-3 shadow">
         <div class="container d-flex justify-content-between align-items-center">
             <h1 class="h4 mb-0">
-                <i class="bi bi-flower1 me-2"></i> Soluciones Digitales (Está sección podría convertirse posteriormente en base.html.)
+                <i class="bi bi-flower1 me-2"></i> Soluciones Digitales
             </h1>
             <div>
                 <span class="badge bg-light text-success" id="fechaActual"></span>
@@ -31,9 +29,7 @@
     </header>
 
     <!-- ============================================================ -->
-    <!-- ========== SECCIÓN: MENÚ DE NAVEGACIÓN ========== -->
-    <!-- ============================================================ -->
-    <!-- 🔹 Esta sección podría convertirse en base.html (bloque nav) -->
+    <!-- ========== SECCIÓN: MENÚ DE NAVEGACIÓN (NAVBAR BOOTSTRAP) ========== -->
     <!-- ============================================================ -->
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
         <div class="container">
@@ -68,12 +64,12 @@
                         </span>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-success btn-sm" id="btnIniciarSesion">
+                        <button class="btn btn-success btn-sm" id="btnIniciarSesion" data-bs-toggle="modal" data-bs-target="#modalLogin">
                             <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
                         </button>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-success btn-sm" id="btnRegistrarse">
+                        <button class="btn btn-outline-success btn-sm" id="btnRegistrarse" data-bs-toggle="modal" data-bs-target="#modalRegistro">
                             <i class="bi bi-person-plus"></i> Registrarse
                         </button>
                     </li>
@@ -89,8 +85,6 @@
 
     <!-- ============================================================ -->
     <!-- ========== SECCIÓN: CONTENIDO PRINCIPAL ========== -->
-    <!-- ============================================================ -->
-    <!-- 🔹 Esta sección podría convertirse en base.html (bloque content) -->
     <!-- ============================================================ -->
     <main>
 
@@ -231,7 +225,7 @@
             </section>
 
             <!-- ================================================================ -->
-            <!-- ===== SECCIÓN: REGISTROS DINÁMICOS (MEJORADA) ===== -->
+            <!-- ===== SECCIÓN: REGISTROS DINÁMICOS ===== -->
             <!-- ================================================================ -->
             <section id="registros" class="my-5">
                 <div class="text-center mb-4">
@@ -263,7 +257,7 @@
                                         <label for="nombreServicio" class="form-label fw-semibold">
                                             Nombre del servicio <span class="text-danger">*</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-custom" id="nombreServicio"
+                                        <input type="text" class="form-control" id="nombreServicio"
                                             placeholder="Ej: Consultoría TI" minlength="3" maxlength="50" required />
                                         <div class="invalid-feedback" id="nombreFeedback">
                                             <i class="bi bi-exclamation-circle"></i> El nombre debe tener al menos 3 caracteres.
@@ -279,7 +273,7 @@
                                         <label for="descripcionServicio" class="form-label fw-semibold">
                                             Descripción <span class="text-danger">*</span>
                                         </label>
-                                        <textarea class="form-control form-control-custom" id="descripcionServicio"
+                                        <textarea class="form-control" id="descripcionServicio"
                                             rows="3" placeholder="Breve descripción del servicio..."
                                             minlength="10" maxlength="200" required></textarea>
                                         <div class="invalid-feedback" id="descripcionFeedback">
@@ -296,7 +290,7 @@
                                         <label for="categoriaServicio" class="form-label fw-semibold">
                                             Categoría <span class="text-danger">*</span>
                                         </label>
-                                        <select class="form-select form-control-custom" id="categoriaServicio" required>
+                                        <select class="form-select" id="categoriaServicio" required>
                                             <option value="">Selecciona una categoría...</option>
                                             <option value="Desarrollo">💻 Desarrollo</option>
                                             <option value="Diseño">🎨 Diseño</option>
@@ -313,19 +307,21 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-submit w-100" id="btnRegistrar">
+                                    <!-- SPINNER BOOTSTRAP para simular carga -->
+                                    <div id="spinnerRegistro" class="text-center d-none">
+                                        <div class="spinner-border text-success" role="status">
+                                            <span class="visually-hidden">Guardando...</span>
+                                        </div>
+                                        <p class="mt-1 text-muted small">Registrando servicio...</p>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success w-100" id="btnRegistrar">
                                         <i class="bi bi-plus-circle me-2"></i> Agregar servicio
                                     </button>
                                 </form>
 
-                                <!-- Mensaje de validación dinámico -->
+                                <!-- Mensaje de validación dinámico (ALERTA BOOTSTRAP) -->
                                 <div id="mensajeValidacion" class="mt-3"></div>
-
-                                <!-- Mensaje de éxito condicional -->
-                                <div id="mensajeExito" class="alert alert-success mt-3 d-none">
-                                    <i class="bi bi-check-circle-fill"></i>
-                                    <span id="mensajeExitoTexto">Servicio registrado correctamente.</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -379,22 +375,22 @@
                         <form action="/enviar" method="POST">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label fw-semibold">Nombre completo</label>
-                                <input type="text" class="form-control form-control-custom" id="nombre"
+                                <input type="text" class="form-control" id="nombre"
                                     name="nombre" placeholder="Tu nombre" required />
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-semibold">Correo electrónico</label>
-                                <input type="email" class="form-control form-control-custom" id="email"
+                                <input type="email" class="form-control" id="email"
                                     name="email" placeholder="ejemplo@correo.com" required />
                             </div>
                             <div class="mb-3">
                                 <label for="asunto" class="form-label fw-semibold">Asunto</label>
-                                <input type="text" class="form-control form-control-custom" id="asunto"
+                                <input type="text" class="form-control" id="asunto"
                                     name="asunto" placeholder="Motivo de tu mensaje" />
                             </div>
                             <div class="mb-3">
                                 <label for="mensaje" class="form-label fw-semibold">Mensaje</label>
-                                <textarea class="form-control form-control-custom" id="mensaje"
+                                <textarea class="form-control" id="mensaje"
                                     name="mensaje" rows="4" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
                             </div>
                             <button type="submit" class="btn btn-submit">
@@ -528,8 +524,6 @@
     <!-- ============================================================ -->
     <!-- ========== SECCIÓN: PIE DE PÁGINA / FOOTER ========== -->
     <!-- ============================================================ -->
-    <!-- 🔹 Esta sección podría convertirse en base.html (bloque footer) -->
-    <!-- ============================================================ -->
     <footer class="footer-custom">
         <div class="container text-center">
             <p class="mb-0">
@@ -544,7 +538,7 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- ========== MODALES DE AUTENTICACIÓN ========== -->
+    <!-- ========== MODALES BOOTSTRAP ========== -->
     <!-- ============================================================ -->
 
     <!-- MODAL: LOGIN -->
@@ -709,6 +703,27 @@
                             <span id="registroExitoTexto">Perfil creado exitosamente. ¡Ya puedes iniciar sesión!</span>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ========== MODAL DE CONFIRMACIÓN (NUEVO - Requisito) ========== -->
+    <!-- ============================================================ -->
+    <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill"></i> Confirmar acción</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalConfirmacionTexto">¿Estás seguro de eliminar este registro?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="modalConfirmarBtn">Eliminar</button>
                 </div>
             </div>
         </div>
