@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- BANNER DE BIENVENIDA -->
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="bi bi-person-check me-2"></i>
+    <strong>Sesión iniciada!</strong> Bienvenido al panel de administración.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bi bi-speedometer2 me-2 text-success"></i>
+        Panel de Administración
+    </h2>
+    <span class="badge bg-success p-2">
+        <i class="bi bi-calendar3 me-1"></i> 
+        <span id="fechaDashboard"></span>
+    </span>
+</div>
+
+<!-- Tarjetas de estadísticas -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-2">Total Productos</h6>
+                        <h3 class="mb-0">1,284</h3>
+                        <small class="text-success">
+                            <i class="bi bi-arrow-up"></i> 12.5%
+                        </small>
+                    </div>
+                    <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                        <i class="bi bi-box-seam text-primary fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-2">Clientes Activos</h6>
+                        <h3 class="mb-0">856</h3>
+                        <small class="text-success">
+                            <i class="bi bi-arrow-up"></i> 8.3%
+                        </small>
+                    </div>
+                    <div class="bg-success bg-opacity-10 p-3 rounded-circle">
+                        <i class="bi bi-people text-success fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-2">Ventas del Mes</h6>
+                        <h3 class="mb-0">$45,230</h3>
+                        <small class="text-danger">
+                            <i class="bi bi-arrow-down"></i> 2.1%
+                        </small>
+                    </div>
+                    <div class="bg-warning bg-opacity-10 p-3 rounded-circle">
+                        <i class="bi bi-cash-stack text-warning fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-2">Órdenes Pendientes</h6>
+                        <h3 class="mb-0">23</h3>
+                        <small class="text-warning">
+                            <i class="bi bi-clock"></i> 5 urgentes
+                        </small>
+                    </div>
+                    <div class="bg-danger bg-opacity-10 p-3 rounded-circle">
+                        <i class="bi bi-clipboard-check text-danger fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gráficos -->
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0">
+                <h6 class="mb-0">
+                    <i class="bi bi-graph-up me-2 text-primary"></i>
+                    Ventas por Mes
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-placeholder" style="height: 200px; background: linear-gradient(90deg, #e8f5e9, #a5d6a7); border-radius: 8px; position: relative;">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 100%; display: flex; align-items: flex-end; padding: 0 10px;">
+                        <div style="height: 30%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 45%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 60%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 75%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 50%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 85%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 70%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 90%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 65%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 40%; width: 10%; background: #4caf50; margin: 0 2px; border-radius: 4px 4px 0 0;"></div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                    <small class="text-muted">Ene</small>
+                    <small class="text-muted">Feb</small>
+                    <small class="text-muted">Mar</small>
+                    <small class="text-muted">Abr</small>
+                    <small class="text-muted">May</small>
+                    <small class="text-muted">Jun</small>
+                    <small class="text-muted">Jul</small>
+                    <small class="text-muted">Ago</small>
+                    <small class="text-muted">Sep</small>
+                    <small class="text-muted">Oct</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0">
+                <h6 class="mb-0">
+                    <i class="bi bi-bar-chart me-2 text-success"></i>
+                    Ventas por Categoría
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-placeholder" style="height: 200px; background: #f8f9fa; border-radius: 8px; position: relative;">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 100%; display: flex; align-items: flex-end; padding: 0 10px;">
+                        <div style="height: 60%; width: 12%; background: #198754; margin: 0 4px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 80%; width: 12%; background: #198754; margin: 0 4px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 45%; width: 12%; background: #198754; margin: 0 4px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 70%; width: 12%; background: #198754; margin: 0 4px; border-radius: 4px 4px 0 0;"></div>
+                        <div style="height: 90%; width: 12%; background: #198754; margin: 0 4px; border-radius: 4px 4px 0 0;"></div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-around mt-2">
+                    <small class="text-muted">Herramientas</small>
+                    <small class="text-muted">Materiales</small>
+                    <small class="text-muted">Electricidad</small>
+                    <small class="text-muted">Pinturas</small>
+                    <small class="text-muted">Fontanería</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TABLA DE DATOS -->
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">
+                <i class="bi bi-table me-2 text-primary"></i>
+                Últimas Transacciones
+            </h6>
+            <div>
+                <button class="btn btn-sm btn-outline-success me-2">
+                    <i class="bi bi-download me-1"></i> Exportar
+                </button>
+                <button class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-plus-circle me-1"></i> Nueva
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Cliente</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Juan Pérez</td>
+                        <td>Taladro Eléctrico</td>
+                        <td>2</td>
+                        <td>$240.00</td>
+                        <td>2026-08-16</td>
+                        <td><span class="badge bg-success">Completado</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>María García</td>
+                        <td>Pintura Blanca</td>
+                        <td>5</td>
+                        <td>$125.00</td>
+                        <td>2026-08-16</td>
+                        <td><span class="badge bg-warning">Pendiente</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Carlos López</td>
+                        <td>Cemento 50kg</td>
+                        <td>10</td>
+                        <td>$450.00</td>
+                        <td>2026-08-15</td>
+                        <td><span class="badge bg-success">Completado</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Botón para volver al inicio -->
+<div class="row mt-4">
+    <div class="col-12 text-center">
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i> Volver al Inicio
+        </a>
+        <a href="#" class="btn btn-outline-danger ms-2">
+            <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fecha = new Date();
+        const fechaElement = document.getElementById('fechaDashboard');
+        if (fechaElement) {
+            fechaElement.textContent = fecha.toLocaleDateString('es-ES', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+    });
+</script>
+{% endblock %}
