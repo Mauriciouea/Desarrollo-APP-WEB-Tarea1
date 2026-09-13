@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
     btnEliminarTodas.addEventListener('click', eliminarTodos);
 
     // Configurar modal para eliminar todos
-    modalConfirmacionBtn.addEventListener('click', function() {
+    modalConfirmarBtn.addEventListener('click', function(){
         if (idAEliminar === 'todos') {
             const cantidad = registros.length;
             registros = [];
