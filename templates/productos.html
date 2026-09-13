@@ -1,6 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Gestión de Productos</h1>
-<p>Aquí irá el contenido del módulo de productos.</p>
+<h1>Productos</h1>
+<h3>Listado de productos disponibles.</h3>
+<table class ="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>{{ producto.precio }}</td>
+            <td>{{ producto.stock }}</td>
+            <td><a href="{{ url_for('editar_producto', nombre=producto.nombre) }}" class="btn btn-primary">Editar</a>
+                <form action="{{ url_for('eliminar_producto', nombre=producto.nombre) }}" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+        </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p> Total de Registros: {{productos|length}}</p>
 {% endblock %}

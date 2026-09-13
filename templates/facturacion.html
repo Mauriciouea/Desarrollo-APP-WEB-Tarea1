@@ -1,6 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Gestión de Facturación</h1>
-<p>Aquí irá el contenido del módulo de facturación.</p>
+<h1>Facturación</h1>
+<h3>Listado de facturas disponibles.</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for factura in facturas %}
+        <tr>
+            <td>{{ factura.numero }}</td>
+            <td>{{ factura.cliente }}</td>
+            <td>{{ factura.fecha }}</td>
+            <td>${{ "%.2f"|format(factura.total) }}</td>
+            <td>{{ factura.estado }}</td>
+            <td>
+                <a href="{{ url_for('editar_factura', numero=factura.numero) }}" class="btn btn-primary">Editar</a>
+                <form action="{{ url_for('eliminar_factura', numero=factura.numero) }}" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p> Total de Registros: {{facturas|length}}</p>
 {% endblock %}

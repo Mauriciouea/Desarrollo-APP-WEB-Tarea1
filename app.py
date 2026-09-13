@@ -28,16 +28,27 @@ def productos():
     ]
     return render_template("productos.html", productos=lista_productos)
 
+#ruta para editar producto
+@app.route('/productos/editar/<nombre>')
+def editar_producto(nombre):
+    # Aquí puedes agregar la lógica para editar un producto según su ID
+    return f'Editar producto con ID: {nombre} editado exitosamente.'
+
+#ruta para eliminar producto
+@app.route('/productos/eliminar/<nombre>')
+def eliminar_producto(nombre):
+    # Aquí puedes agregar la lógica para eliminar un producto según su ID
+    return f'Eliminar producto con ID: {nombre} eliminado exitosamente.'
 
 @app.route("/clientes")
 def clientes():
     lista_clientes = [
-        {"nombre": "Carlos Andrade", "email": "carlos.andrade@mail.com", "telefono": "0991234567"},
-        {"nombre": "María Fernanda López", "email": "mflopez@mail.com", "telefono": "0987654321"},
-        {"nombre": "Jorge Ramírez", "email": "jramirez@mail.com", "telefono": "0965412378"},
-        {"nombre": "Empresa Textilana S.A.", "email": "contacto@textilana.com", "telefono": "0422345678"},
-        {'nombre': "Fernando López.", "email": "fernando.lopez@mail.com", "telefono": "0423456789"},
-        {'nombre': "Marcos González", "email": "marcos.gonzalez@mail.com", "telefono": "0423456789"}
+        {"id": 1, "nombre": "Carlos Andrade", "email": "carlos.andrade@mail.com", "telefono": "0991234567"},
+        {"id": 2, "nombre": "María Fernanda López", "email": "mflopez@mail.com", "telefono": "0987654321"},
+        {"id": 3, "nombre": "Jorge Ramírez", "email": "jramirez@mail.com", "telefono": "0965412378"},
+        {"id": 4, "nombre": "Empresa Textilana S.A.", "email": "contacto@textilana.com", "telefono": "0422345678"},
+        {"id": 5, "nombre": "Fernando López.", "email": "fernando.lopez@mail.com", "telefono": "0423456789"},
+        {"id": 6, "nombre": "Marcos González", "email": "marcos.gonzalez@mail.com", "telefono": "0423456789"},
     ]
     return render_template("clientes.html", clientes=lista_clientes)
 
@@ -64,6 +75,17 @@ def proveedores():
     ]
     return render_template("proveedores.html", proveedores=lista_proveedores)
 
+#ruta para editar proveedor
+@app.route('/proveedores/editar/<nombre>')
+def editar_proveedor(nombre):
+    # Aquí puedes agregar la lógica para editar un proveedor según su ID
+    return f'Editar proveedor con ID: {nombre} editado exitosamente.'
+
+#ruta para eliminar proveedor
+@app.route('/proveedores/eliminar/<nombre>')
+def eliminar_proveedor(nombre):
+    # Aquí puedes agregar la lógica para eliminar un proveedor según su ID
+    return f'Eliminar proveedor con ID: {nombre} eliminado exitosamente.'
 
 @app.route("/facturacion")
 def facturacion():
@@ -75,6 +97,17 @@ def facturacion():
     ]
     return render_template("facturacion.html", facturas=lista_facturas)
 
+#ruta para editar factura
+@app.route('/facturacion/editar/<numero>')
+def editar_factura(numero):
+    # Aquí puedes agregar la lógica para editar una factura según su número
+    return f'Editar factura con número: {numero} editada exitosamente.'
+
+#ruta para eliminar factura
+@app.route('/facturacion/eliminar/<numero>')
+def eliminar_factura(numero):
+    # Aquí puedes agregar la lógica para eliminar una factura según su número
+    return f'Eliminar factura con número: {numero} eliminada exitosamente.'
 
 if __name__ == "__main__":
     app.run(debug=True)
