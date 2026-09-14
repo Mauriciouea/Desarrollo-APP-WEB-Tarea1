@@ -1,0 +1,32 @@
+from flask import Blueprint, render_template, request, redirect, url_for
+
+producto_form_bp = Blueprint("producto_form", __name__)
+
+# Lista de productos (vive aquí para que tanto el listado como el formulario la compartan)
+lista_productos = [
+    {"nombre": "Consultoría TI", "categoria": "Consultoría", "precio": 250.00, "stock": 15},
+    {"nombre": "Diseño de Sitio Web", "categoria": "Diseño", "precio": 480.00, "stock": 8},
+    {"nombre": "Licencia Cloud Básica", "categoria": "Infraestructura", "precio": 120.00, "stock": 30},
+    {"nombre": "Auditoría de Seguridad", "categoria": "Seguridad", "precio": 350.00, "stock": 5},
+    {"nombre": "Desarrollo de App Móvil", "categoria": "Desarrollo", "precio": 900.00, "stock": 3},
+]
+
+
+@producto_form_bp.route("/productos")
+def productos():
+    return render_template("productos.html", productos=lista_productos)
+
+
+@producto_form_bp.route("/productos/nuevo", methods=["GET", "POST"])
+def nuevo_producto():
+    if request.method == "POST":
+        nuevo = {
+            "nombre": request.form.get("nombre"),
+            "categoria": request.form.get("categoria"),
+            "precio": float(request.form.get("precio", 0)),
+            "stock": int(request.form.get("stock", 0)),
+        }
+        lista_productos.append(nuevo)
+        return redirect(url_for("producto_form.productos"))
+
+    return render_template("formulario_producto.html")

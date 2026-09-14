@@ -3,6 +3,13 @@
 {% block content %}
 <h1>Proveedores</h1>
 <h3>Listado de proveedores disponibles.</h3>
+
+<div class="d-flex justify-content-end mb-3">
+    <a href="{{ url_for('proveedor_form.nuevo_proveedor') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle me-2"></i> Nuevo proveedor
+    </a>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>

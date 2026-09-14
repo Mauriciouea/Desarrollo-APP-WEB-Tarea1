@@ -3,7 +3,14 @@
 {% block content %}
 <h1>Productos</h1>
 <h3>Listado de productos disponibles.</h3>
-<table class ="table table-striped">
+
+<div class="d-flex justify-content-end mb-3">
+    <a href="{{ url_for('producto_form.nuevo_producto') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle me-2"></i> Nuevo producto
+    </a>
+</div>
+
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
