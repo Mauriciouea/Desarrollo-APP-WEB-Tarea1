@@ -2,11 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for
 from producto_form import producto_form_bp
 from proveedor_form import proveedor_form_bp
 from cliente_form import cliente_form_bp
+from factura_form import factura_form_bp
 
 app = Flask(__name__)                              # 1️⃣ Primero se crea 'app'
 app.register_blueprint(producto_form_bp)           # 2️⃣ Después se registran los blueprints
 app.register_blueprint(proveedor_form_bp)
 app.register_blueprint(cliente_form_bp)
+app.register_blueprint(factura_form_bp)
 
 # Página principal - SOLO 4 TARJETAS
 @app.route("/")
@@ -56,17 +58,6 @@ def editar_proveedor(nombre):
 @app.route('/proveedores/eliminar/<nombre>')
 def eliminar_proveedor(nombre):
     return f'Eliminar proveedor con ID: {nombre} eliminado exitosamente.'
-
-
-@app.route("/facturacion")
-def facturacion():
-    lista_facturas = [
-        {"numero": "F001-000123", "cliente": "Carlos Andrade", "fecha": "2026-08-01", "total": 250.00, "estado": "Pagada"},
-        {"numero": "F001-000124", "cliente": "María Fernanda López", "fecha": "2026-08-05", "total": 480.00, "estado": "Pendiente"},
-        {"numero": "F001-000125", "cliente": "Empresa Textilana S.A.", "fecha": "2026-08-10", "total": 900.00, "estado": "Pagada"},
-        {"numero": "F001-000126", "cliente": "Jorge Ramírez", "fecha": "2026-08-13", "total": 120.00, "estado": "Anulada"},
-    ]
-    return render_template("facturacion.html", facturas=lista_facturas)
 
 # ruta para editar factura
 @app.route('/facturacion/editar/<numero>')

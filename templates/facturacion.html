@@ -3,6 +3,13 @@
 {% block content %}
 <h1>Facturación</h1>
 <h3>Listado de facturas disponibles.</h3>
+
+<div class="d-flex justify-content-end mb-3">
+    <a href="{{ url_for('factura_form.nueva_factura') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle me-2"></i> Nueva factura
+    </a>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
