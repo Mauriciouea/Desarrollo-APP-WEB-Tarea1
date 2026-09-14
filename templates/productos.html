@@ -27,7 +27,7 @@
             <td>{{ producto.categoria }}</td>
             <td>{{ producto.precio }}</td>
             <td>{{ producto.stock }}</td>
-            <td><a href="{{ url_for('editar_producto', nombre=producto.nombre) }}" class="btn btn-primary">Editar</a>
+            <td><a href="{{ url_for('producto_form.editar_producto', nombre=producto.nombre) }}" class="btn btn-primary">Editar</a>
                 <form action="{{ url_for('eliminar_producto', nombre=producto.nombre) }}" method="POST" style="display: inline;">
                     <button type="submit" class="btn btn-danger">Eliminar</button>
                 </form>

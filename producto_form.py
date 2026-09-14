@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 producto_form_bp = Blueprint("producto_form", __name__)
 
-# Lista de productos (vive aquí para que tanto el listado como el formulario la compartan)
 lista_productos = [
     {"nombre": "Consultoría TI", "categoria": "Consultoría", "precio": 250.00, "stock": 15},
     {"nombre": "Diseño de Sitio Web", "categoria": "Diseño", "precio": 480.00, "stock": 8},
@@ -29,4 +28,21 @@ def nuevo_producto():
         lista_productos.append(nuevo)
         return redirect(url_for("producto_form.productos"))
 
-    return render_template("formulario_producto.html")
+    return render_template("formulario_producto.html", producto=None)
+
+
+@producto_form_bp.route("/productos/editar/<nombre>", methods=["GET", "POST"])
+def editar_producto(nombre):
+    producto = next((p for p in lista_productos if p["nombre"] == nombre), None)
+
+    if producto is None:
+        return f'Producto "{nombre}" no encontrado.', 404
+
+    if request.method == "POST":
+        producto["nombre"] = request.form.get("nombre")
+        producto["categoria"] = request.form.get("categoria")
+        producto["precio"] = float(request.form.get("precio", 0))
+        producto["stock"] = int(request.form.get("stock", 0))
+        return redirect(url_for("producto_form.productos"))
+
+    return render_template("formulario_producto.html", producto=producto)

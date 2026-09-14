@@ -25,11 +25,6 @@ def dashboard():
 
 # ⚠️ La ruta "/productos" (listar) y "/productos/nuevo" (agregar) viven en producto_form.py
 
-# ruta para editar producto
-@app.route('/productos/editar/<nombre>')
-def editar_producto(nombre):
-    return f'Editar producto con ID: {nombre} editado exitosamente.'
-
 # ruta para eliminar producto
 @app.route('/productos/eliminar/<nombre>')
 def eliminar_producto(nombre):
