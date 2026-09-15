@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 cliente_form_bp = Blueprint("cliente_form", __name__)
 
-# Lista de clientes (vive aquí para que tanto el listado como el formulario la compartan)
 lista_clientes = [
     {"id": 1, "nombre": "Carlos Andrade", "email": "carlos.andrade@mail.com", "telefono": "0991234567"},
     {"id": 2, "nombre": "María Fernanda López", "email": "mflopez@mail.com", "telefono": "0987654321"},
@@ -30,4 +29,20 @@ def nuevo_cliente():
         lista_clientes.append(nuevo)
         return redirect(url_for("cliente_form.clientes"))
 
-    return render_template("formulario_cliente.html")
+    return render_template("formulario_cliente.html", cliente=None)
+
+
+@cliente_form_bp.route("/clientes/editar/<nombre>", methods=["GET", "POST"])
+def editar_cliente(nombre):
+    cliente = next((c for c in lista_clientes if c["nombre"] == nombre), None)
+
+    if cliente is None:
+        return f'Cliente "{nombre}" no encontrado.', 404
+
+    if request.method == "POST":
+        cliente["nombre"] = request.form.get("nombre")
+        cliente["email"] = request.form.get("email")
+        cliente["telefono"] = request.form.get("telefono")
+        return redirect(url_for("cliente_form.clientes"))
+
+    return render_template("formulario_cliente.html", cliente=cliente)

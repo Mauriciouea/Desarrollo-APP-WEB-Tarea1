@@ -26,4 +26,20 @@ def nuevo_proveedor():
         lista_proveedores.append(nuevo)
         return redirect(url_for("proveedor_form.proveedores"))
 
-    return render_template("formulario_proveedor.html")
+    return render_template("formulario_proveedor.html", proveedor=None)
+
+
+@proveedor_form_bp.route("/proveedores/editar/<nombre>", methods=["GET", "POST"])
+def editar_proveedor(nombre):
+    proveedor = next((p for p in lista_proveedores if p["nombre"] == nombre), None)
+
+    if proveedor is None:
+        return f'Proveedor "{nombre}" no encontrado.', 404
+
+    if request.method == "POST":
+        proveedor["nombre"] = request.form.get("nombre")
+        proveedor["producto"] = request.form.get("producto")
+        proveedor["contacto"] = request.form.get("contacto")
+        return redirect(url_for("proveedor_form.proveedores"))
+
+    return render_template("formulario_proveedor.html", proveedor=proveedor)

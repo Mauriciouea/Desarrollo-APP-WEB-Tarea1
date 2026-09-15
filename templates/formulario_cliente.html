@@ -4,37 +4,41 @@
 <div class="container my-5">
     <div class="text-center mb-4">
         <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-2">
-            <i class="bi bi-plus-circle me-1"></i> Nuevo registro
+            <i class="bi bi-{{ 'pencil' if cliente else 'plus-circle' }} me-1"></i>
+            {{ 'Editar registro' if cliente else 'Nuevo registro' }}
         </span>
-        <h2 class="fw-bold display-6">Ingresar Cliente</h2>
+        <h2 class="fw-bold display-6">{{ 'Editar Cliente' if cliente else 'Ingresar Cliente' }}</h2>
     </div>
 
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="card info-card">
                 <div class="card-body p-4">
-                    <form method="POST" action="{{ url_for('cliente_form.nuevo_cliente') }}">
+                    <form method="POST" action="{{ url_for('cliente_form.editar_cliente', nombre=cliente.nombre) if cliente else url_for('cliente_form.nuevo_cliente') }}">
                         <div class="mb-3">
                             <label for="nombre" class="form-label fw-semibold">Nombre completo</label>
                             <input type="text" class="form-control" id="nombre" name="nombre"
+                                   value="{{ cliente.nombre if cliente else '' }}"
                                    placeholder="Ej: Carlos Andrade" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label fw-semibold">Correo electrónico</label>
                             <input type="email" class="form-control" id="email" name="email"
+                                   value="{{ cliente.email if cliente else '' }}"
                                    placeholder="ejemplo@correo.com" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="telefono" class="form-label fw-semibold">Teléfono</label>
                             <input type="tel" class="form-control" id="telefono" name="telefono"
+                                   value="{{ cliente.telefono if cliente else '' }}"
                                    placeholder="0991234567" required>
                         </div>
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-success flex-grow-1">
-                                <i class="bi bi-check-circle me-2"></i> Guardar cliente
+                                <i class="bi bi-check-circle me-2"></i> {{ 'Guardar cambios' if cliente else 'Guardar cliente' }}
                             </button>
                             <a href="{{ url_for('cliente_form.clientes') }}" class="btn btn-outline-secondary">
                                 Cancelar

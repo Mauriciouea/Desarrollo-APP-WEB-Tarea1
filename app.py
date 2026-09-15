@@ -31,11 +31,6 @@ def eliminar_producto(nombre):
     return f'Eliminar producto con ID: {nombre} eliminado exitosamente.'
 
 
-# ruta de editar cliente
-@app.route('/clientes/editar/<nombre>')
-def editar_cliente(nombre):
-    return f'Editar cliente con ID: {nombre} editado exitosamente.'
-
 # ruta para eliminar cliente
 @app.route('/clientes/eliminar/<nombre>')
 def eliminar_cliente(nombre):
@@ -44,20 +39,12 @@ def eliminar_cliente(nombre):
 
 # ⚠️ La ruta "/proveedores" (listar) y "/proveedores/nuevo" (agregar) viven en proveedor_form.py
 
-# ruta para editar proveedor
-@app.route('/proveedores/editar/<nombre>')
-def editar_proveedor(nombre):
-    return f'Editar proveedor con ID: {nombre} editado exitosamente.'
 
 # ruta para eliminar proveedor
 @app.route('/proveedores/eliminar/<nombre>')
 def eliminar_proveedor(nombre):
     return f'Eliminar proveedor con ID: {nombre} eliminado exitosamente.'
 
-# ruta para editar factura
-@app.route('/facturacion/editar/<numero>')
-def editar_factura(numero):
-    return f'Editar factura con número: {numero} editada exitosamente.'
 
 # ruta para eliminar factura
 @app.route('/facturacion/eliminar/<numero>')
