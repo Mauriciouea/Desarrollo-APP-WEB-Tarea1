@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Proveedores</h1>
-<h3>Listado de proveedores disponibles.</h3>
+<h3>Listado de proveedores registrados.</h3>
 
 <div class="d-flex justify-content-end mb-3">
     <a href="{{ url_for('proveedor_form.nuevo_proveedor') }}" class="btn btn-success">
@@ -13,6 +13,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Producto</th>
             <th>Contacto</th>
@@ -22,18 +23,31 @@
     <tbody>
         {% for proveedor in proveedores %}
         <tr>
+            <td>{{ proveedor.id }}</td>
             <td>{{ proveedor.nombre }}</td>
             <td>{{ proveedor.producto }}</td>
             <td>{{ proveedor.contacto }}</td>
             <td>
-                <a href="{{ url_for('proveedor_form.editar_proveedor', nombre=proveedor.nombre) }}" class="btn btn-primary">Editar</a>
-                <form action="{{ url_for('eliminar_proveedor', nombre=proveedor.nombre) }}" method="POST" style="display: inline;">
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                <a href="{{ url_for('proveedor_form.editar_proveedor', id=proveedor.id) }}"
+                   class="btn btn-primary btn-sm">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+                <form action="{{ url_for('proveedor_form.eliminar_proveedor', id=proveedor.id) }}"
+                      method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Seguro que quieres eliminar este proveedor?')">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </button>
                 </form>
             </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">No hay proveedores registrados.</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<p> Total de Registros: {{proveedores|length}}</p>
+
+<p>Total de Registros: {{ proveedores|length }}</p>
 {% endblock %}

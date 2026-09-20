@@ -1,55 +1,41 @@
 from flask import Flask, render_template, request, redirect, url_for
+from config import Config
+from extensiones import db
+from modelos import Producto, Proveedor, Cliente, Factura
 from producto_form import producto_form_bp
 from proveedor_form import proveedor_form_bp
 from cliente_form import cliente_form_bp
 from factura_form import factura_form_bp
 
-app = Flask(__name__)                              # 1️⃣ Primero se crea 'app'
-app.register_blueprint(producto_form_bp)           # 2️⃣ Después se registran los blueprints
+app = Flask(__name__)
+app.config.from_object(Config)
+
+db.init_app(app)
+
+# Registrar blueprints
+app.register_blueprint(producto_form_bp)
 app.register_blueprint(proveedor_form_bp)
 app.register_blueprint(cliente_form_bp)
 app.register_blueprint(factura_form_bp)
 
-# Página principal - SOLO 4 TARJETAS
+
+# ✅ Crear la BD al cargar la app
+with app.app_context():
+    db.create_all()
+    print("✅ Base de datos creada en: data/SolucionesDigitales.db")
+
+
+# 🏠 Página principal
 @app.route("/")
 @app.route("/inicio")
 def index():
     return render_template("index.html")
 
 
-# Dashboard - Iniciar Sesión
+# 📊 Dashboard
 @app.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
-
-
-# ⚠️ La ruta "/productos" (listar) y "/productos/nuevo" (agregar) viven en producto_form.py
-
-# ruta para eliminar producto
-@app.route('/productos/eliminar/<nombre>')
-def eliminar_producto(nombre):
-    return f'Eliminar producto con ID: {nombre} eliminado exitosamente.'
-
-
-# ruta para eliminar cliente
-@app.route('/clientes/eliminar/<nombre>')
-def eliminar_cliente(nombre):
-    return f'Eliminar cliente con ID: {nombre} eliminado exitosamente.'
-
-
-# ⚠️ La ruta "/proveedores" (listar) y "/proveedores/nuevo" (agregar) viven en proveedor_form.py
-
-
-# ruta para eliminar proveedor
-@app.route('/proveedores/eliminar/<nombre>')
-def eliminar_proveedor(nombre):
-    return f'Eliminar proveedor con ID: {nombre} eliminado exitosamente.'
-
-
-# ruta para eliminar factura
-@app.route('/facturacion/eliminar/<numero>')
-def eliminar_factura(numero):
-    return f'Eliminar factura con número: {numero} eliminada exitosamente.'
 
 
 if __name__ == "__main__":

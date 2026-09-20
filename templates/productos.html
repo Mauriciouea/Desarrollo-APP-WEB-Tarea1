@@ -13,6 +13,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Categoría</th>
             <th>Precio</th>
@@ -23,18 +24,32 @@
     <tbody>
         {% for producto in productos %}
         <tr>
+            <td>{{ producto.id }}</td>          <!-- ✅ Agregado el ID -->
             <td>{{ producto.nombre }}</td>
             <td>{{ producto.categoria }}</td>
-            <td>{{ producto.precio }}</td>
+            <td>${{ producto.precio }}</td>     <!-- ✅ Agregado el $ -->
             <td>{{ producto.stock }}</td>
-            <td><a href="{{ url_for('producto_form.editar_producto', nombre=producto.nombre) }}" class="btn btn-primary">Editar</a>
-                <form action="{{ url_for('eliminar_producto', nombre=producto.nombre) }}" method="POST" style="display: inline;">
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+            <td>
+                <a href="{{ url_for('producto_form.editar_producto', id=producto.id) }}"
+                   class="btn btn-primary btn-sm">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+                <form action="{{ url_for('producto_form.eliminar_producto', id=producto.id) }}"
+                      method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Seguro que quieres eliminar este producto?')">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </button>
                 </form>
-        </td>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6" class="text-center">No hay productos registrados.</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<p> Total de Registros: {{productos|length}}</p>
+
+<p>Total de Registros: {{ productos|length }}</p>
 {% endblock %}
