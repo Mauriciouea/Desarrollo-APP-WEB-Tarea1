@@ -22,15 +22,15 @@ class Cliente(db.Model):
     __tablename__ = 'clientes'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100))          # ✅ Agregada
-    telefono = db.Column(db.String(20))        # ✅ Agregada
+    email = db.Column(db.String(100))
+    telefono = db.Column(db.String(20))
 
 
 class Factura(db.Model):
     __tablename__ = 'facturas'
     id = db.Column(db.Integer, primary_key=True)
     numero = db.Column(db.String(50), nullable=False)
-    cliente = db.Column(db.String(100))        # ✅ Agregada
-    fecha = db.Column(db.String(20))           # ✅ Agregada (como texto para simplificar)
-    total = db.Column(db.Float, default=0.0)   # ✅ Agregada
-    estado = db.Column(db.String(20))          # ✅ Agregada
+    cliente = db.Column(db.String(100))
+    fecha = db.Column(db.String(20))
+    total = db.Column(db.Float, default=0.0)
+    estado = db.Column(db.String(20))

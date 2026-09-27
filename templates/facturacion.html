@@ -32,12 +32,9 @@
             <td>${{ factura.total }}</td>
             <td>{{ factura.estado }}</td>
             <td>
-                <a href="{{ url_for('factura_form.editar_factura', id=factura.id) }}"
-                   class="btn btn-primary btn-sm">Editar</a>
-                <form action="{{ url_for('factura_form.eliminar_factura', id=factura.id) }}"
-                      method="POST" style="display: inline;">
-                    <button type="submit" class="btn btn-danger btn-sm"
-                            onclick="return confirm('¿Eliminar esta factura?')">Eliminar</button>
+                <a href="{{ url_for('factura_form.editar_factura', id=factura.id) }}" class="btn btn-primary btn-sm">Editar</a>
+                <form action="{{ url_for('factura_form.eliminar_factura', id=factura.id) }}" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar esta factura?')">Eliminar</button>
                 </form>
             </td>
         </tr>

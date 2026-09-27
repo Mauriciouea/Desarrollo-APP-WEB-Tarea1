@@ -19,16 +19,6 @@ app.register_blueprint(cliente_form_bp)
 app.register_blueprint(factura_form_bp)
 
 
-# ✅ Verificar conexión a MySQL al arrancar
-with app.app_context():
-    try:
-        # Intenta hacer una consulta simple para confirmar la conexión
-        db.session.execute(db.text("SELECT 1"))
-        print("✅ Conectado a MySQL: SolucionesDigitales")
-    except Exception as e:
-        print(f"❌ Error al conectar a MySQL: {e}")
-
-
 # 🏠 Página principal
 @app.route("/")
 @app.route("/inicio")

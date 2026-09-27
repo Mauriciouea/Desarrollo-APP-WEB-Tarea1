@@ -6,14 +6,12 @@ from modelos import Cliente
 cliente_form_bp = Blueprint("cliente_form", __name__)
 
 
-# 📋 LISTAR clientes
 @cliente_form_bp.route("/clientes")
 def clientes():
     lista_clientes = Cliente.query.all()
     return render_template("clientes.html", clientes=lista_clientes)
 
 
-# ➕ CREAR cliente
 @cliente_form_bp.route("/clientes/nuevo", methods=["GET", "POST"])
 def nuevo_cliente():
     if request.method == "POST":
@@ -29,7 +27,6 @@ def nuevo_cliente():
     return render_template("formulario_cliente.html", cliente=None)
 
 
-# ✏️ EDITAR cliente
 @cliente_form_bp.route("/clientes/editar/<int:id>", methods=["GET", "POST"])
 def editar_cliente(id):
     cliente = Cliente.query.get_or_404(id)
@@ -44,7 +41,6 @@ def editar_cliente(id):
     return render_template("formulario_cliente.html", cliente=cliente)
 
 
-# 🗑️ ELIMINAR cliente
 @cliente_form_bp.route("/clientes/eliminar/<int:id>", methods=["POST"])
 def eliminar_cliente(id):
     cliente = Cliente.query.get_or_404(id)

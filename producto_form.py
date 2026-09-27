@@ -6,14 +6,12 @@ from modelos import Producto
 producto_form_bp = Blueprint("producto_form", __name__)
 
 
-# 📋 LISTAR productos (desde la base de datos)
 @producto_form_bp.route("/productos")
 def productos():
     lista_productos = Producto.query.all()
     return render_template("productos.html", productos=lista_productos)
 
 
-# ➕ CREAR nuevo producto
 @producto_form_bp.route("/productos/nuevo", methods=["GET", "POST"])
 def nuevo_producto():
     if request.method == "POST":
@@ -30,7 +28,6 @@ def nuevo_producto():
     return render_template("formulario_producto.html", producto=None)
 
 
-# ✏️ EDITAR producto
 @producto_form_bp.route("/productos/editar/<int:id>", methods=["GET", "POST"])
 def editar_producto(id):
     producto = Producto.query.get_or_404(id)
@@ -46,7 +43,6 @@ def editar_producto(id):
     return render_template("formulario_producto.html", producto=producto)
 
 
-# 🗑️ ELIMINAR producto
 @producto_form_bp.route("/productos/eliminar/<int:id>", methods=["POST"])
 def eliminar_producto(id):
     producto = Producto.query.get_or_404(id)

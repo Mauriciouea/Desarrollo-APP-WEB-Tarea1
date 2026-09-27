@@ -10,19 +10,16 @@
             <input type="text" name="nombre" class="form-control"
                    value="{{ proveedor.nombre if proveedor else '' }}" required>
         </div>
-
         <div class="mb-3">
             <label class="form-label">Producto:</label>
             <input type="text" name="producto" class="form-control"
                    value="{{ proveedor.producto if proveedor else '' }}">
         </div>
-
         <div class="mb-3">
             <label class="form-label">Contacto:</label>
             <input type="text" name="contacto" class="form-control"
                    value="{{ proveedor.contacto if proveedor else '' }}">
         </div>
-
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{ url_for('proveedor_form.proveedores') }}" class="btn btn-secondary">Cancelar</a>
     </form>

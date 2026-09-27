@@ -7,14 +7,12 @@ from modelos import Factura
 factura_form_bp = Blueprint("factura_form", __name__)
 
 
-# 📋 LISTAR facturas
 @factura_form_bp.route("/facturacion")
 def facturacion():
     lista_facturas = Factura.query.all()
     return render_template("facturacion.html", facturas=lista_facturas)
 
 
-# ➕ CREAR factura
 @factura_form_bp.route("/facturacion/nuevo", methods=["GET", "POST"])
 def nueva_factura():
     if request.method == "POST":
@@ -32,7 +30,6 @@ def nueva_factura():
     return render_template("formulario_factura.html", factura=None, hoy=date.today().isoformat())
 
 
-# ✏️ EDITAR factura
 @factura_form_bp.route("/facturacion/editar/<int:id>", methods=["GET", "POST"])
 def editar_factura(id):
     factura = Factura.query.get_or_404(id)
@@ -49,7 +46,6 @@ def editar_factura(id):
     return render_template("formulario_factura.html", factura=factura, hoy=factura.fecha)
 
 
-# 🗑️ ELIMINAR factura
 @factura_form_bp.route("/facturacion/eliminar/<int:id>", methods=["POST"])
 def eliminar_factura(id):
     factura = Factura.query.get_or_404(id)
