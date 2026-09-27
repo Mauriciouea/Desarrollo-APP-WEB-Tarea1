@@ -1,12 +1,20 @@
-
 /* ================================================================
-   ESTILOS GLOBALES
+   FONDO DE PÁGINA CON IMAGEN SUTIL
    ================================================================ */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    
+    background-image: 
+        linear-gradient(135deg, rgba(39, 174, 96, 0.90), rgba(26, 37, 47, 0.93)),
+        url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #1a252f;
 }
 
 /* ================================================================
@@ -26,21 +34,18 @@ body {
    HERO SECTION
    ================================================================ */
 .hero-section {
-    background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+    background-image: 
+        linear-gradient(135deg, rgba(26, 37, 47, 0.85), rgba(44, 62, 80, 0.75)),
+        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     color: white;
-    padding: 60px 0;
+    padding: 80px 0;
     border-radius: 0 0 30px 30px;
     margin-bottom: 30px;
-}
-
-.hero-section h1 {
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
-
-.hero-section .lead {
-    font-weight: 300;
-    color: #d1d9e6;
+    position: relative;
 }
 
 /* ================================================================
@@ -118,7 +123,7 @@ body {
 }
 
 /* ================================================================
-   VALIDACIONES DINÁMICAS (Semana 6)
+   VALIDACIONES DINÁMICAS
    ================================================================ */
 .form-control.is-valid,
 .form-select.is-valid {
@@ -144,7 +149,6 @@ body {
     margin-right: 4px;
 }
 
-/* Contadores de caracteres */
 small.text-muted {
     font-size: 0.75rem;
     margin-top: 4px;
@@ -255,7 +259,7 @@ small.text-muted.success {
 }
 
 /* ================================================================
-   REGISTROS DINÁMICOS (Tarjetas / Listas)
+   REGISTROS DINÁMICOS
    ================================================================ */
 .registro-item {
     border-left: 4px solid #27ae60;
@@ -264,14 +268,8 @@ small.text-muted.success {
 }
 
 @keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .registro-item:hover {
@@ -299,7 +297,7 @@ small.text-muted.success {
 }
 
 /* ================================================================
-   MENSAJE CONDICIONAL (Sin registros)
+   MENSAJE VACÍO
    ================================================================ */
 #mensajeVacio {
     text-align: center;
@@ -353,6 +351,10 @@ small.text-muted.success {
     .registro-item .btn-eliminar {
         align-self: flex-end;
     }
+
+    body {
+        background-attachment: scroll;
+    }
 }
 
 /* ================================================================
@@ -387,7 +389,6 @@ small.text-muted.success {
     opacity: 0.9;
 }
 
-/* Tarjetas del dashboard */
 .card {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -397,19 +398,18 @@ small.text-muted.success {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Badges de estado */
 .badge {
     font-weight: 500;
     padding: 6px 12px;
 }
 
-/* Tabla hover */
 .table-hover tbody tr:hover {
     background-color: #f0fdf4;
     cursor: pointer;
 }
+
 /* ================================================================
-   BOTÓN INGRESAR AL SISTEMA - DESTACADO
+   BOTÓN INGRESAR AL SISTEMA
    ================================================================ */
 .btn-ingresar-sistema {
     display: inline-block;
@@ -426,6 +426,7 @@ small.text-muted.success {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    animation: pulse 2s infinite;
 }
 
 .btn-ingresar-sistema:hover {
@@ -435,35 +436,116 @@ small.text-muted.success {
     text-decoration: none;
 }
 
-.btn-ingresar-sistema::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(39, 174, 96, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
 }
 
-.btn-ingresar-sistema:hover::after {
+/* ================================================================
+   TARJETAS DE SERVICIOS CON IMAGEN
+   ================================================================ */
+.service-card {
+    overflow: hidden;
+    border-radius: 18px;
+    transition: all 0.4s ease;
+    background: #fff;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.service-img-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    width: 100%;
+}
+
+.service-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s ease;
+    display: block;
+}
+
+.service-card:hover .service-img {
+    transform: scale(1.15);
+}
+
+.service-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(25, 135, 84, 0.75), rgba(25, 135, 84, 0.4));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.service-card:hover .service-overlay {
     opacity: 1;
 }
 
-/* Animación de pulso */
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.4);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(39, 174, 96, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(39, 174, 96, 0);
-    }
+.service-icon {
+    font-size: 4rem;
+    color: #fff;
+    transform: scale(0.5);
+    transition: transform 0.4s ease;
 }
 
-.btn-ingresar-sistema {
-    animation: pulse 2s infinite;
+.service-card:hover .service-icon {
+    transform: scale(1);
+}
+
+.service-card .card-title {
+    color: #198754;
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+}
+
+.service-card .card-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+/* ================================================================
+   MEJORA DE LEGIBILIDAD GENERAL
+   ================================================================ */
+
+/* Todos los títulos con sombra */
+h1, h2, h3, h4, h5, h6 {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Texto de párrafos con sombra sutil */
+p, .lead, .text-muted, .text-secondary {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Títulos de sección sobre el fondo - blanco */
+section > .text-center h2,
+section > .text-center .display-6 {
+    color: #ffffff !important;
+}
+
+/* Descripción de sección sobre el fondo - blanco claro */
+section > .text-center > p,
+section > .text-center .text-muted {
+    color: #f0f0f0 !important;
+}
+
+/* Badges sobre el fondo */
+section > .text-center .badge {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(4px);
 }
