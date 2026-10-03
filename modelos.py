@@ -34,3 +34,6 @@ class Factura(db.Model):
     fecha = db.Column(db.String(20))
     total = db.Column(db.Float, default=0.0)
     estado = db.Column(db.String(20))
+    detalle = db.Column(db.String(300))
+    producto_id = db.Column(db.Integer, db.ForeignKey('productos.id'))
+    cantidad = db.Column(db.Integer, default=1)

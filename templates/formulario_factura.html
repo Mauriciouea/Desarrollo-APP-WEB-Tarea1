@@ -1,40 +1,131 @@
+<!-- 🔥 VERSION 2 CON PRODUCTOS - {{ "now"|string }} -->
 {% extends "base.html" %}
 
 {% block content %}
 <div class="container mt-4">
     <h1>{% if factura %}Editar{% else %}Nueva{% endif %} Factura</h1>
 
-    <form method="POST">
-        <div class="mb-3">
-            <label class="form-label">Número:</label>
-            <input type="text" name="numero" class="form-control"
-                   value="{{ factura.numero if factura else '' }}" required>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" id="formFactura">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Número:</label>
+                <input type="text" name="numero" class="form-control"
+                       value="{{ factura.numero if factura else siguiente_numero }}"
+                       readonly>
+                <small class="text-muted">Se genera automáticamente.</small>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Fecha:</label>
+                <input type="date" name="fecha" class="form-control"
+                       value="{{ factura.fecha if factura else hoy }}">
+            </div>
         </div>
+
         <div class="mb-3">
             <label class="form-label">Cliente:</label>
             <input type="text" name="cliente" class="form-control"
-                   value="{{ factura.cliente if factura else '' }}">
+                   value="{{ factura.cliente if factura else '' }}"
+                   placeholder="Nombre del cliente" required>
         </div>
+
+        <!-- Selector de producto -->
         <div class="mb-3">
-            <label class="form-label">Fecha:</label>
-            <input type="date" name="fecha" class="form-control"
-                   value="{{ factura.fecha if factura else hoy }}">
+            <label class="form-label">
+                Producto / Servicio <span class="text-danger">*</span>
+            </label>
+            <select name="producto_id" id="producto_id" class="form-select" required>
+                <option value="">-- Selecciona un producto --</option>
+                {% for p in productos %}
+                    <option value="{{ p.id }}"
+                            data-precio="{{ p.precio }}"
+                            data-stock="{{ p.stock }}"
+                            data-nombre="{{ p.nombre }}"
+                            {% if factura and factura.producto_id == p.id %}selected{% endif %}>
+                        {{ p.nombre }} — ${{ p.precio }} (Stock: {{ p.stock }})
+                    </option>
+                {% endfor %}
+            </select>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Total:</label>
-            <input type="number" step="0.01" name="total" class="form-control"
-                   value="{{ factura.total if factura else '' }}">
+
+        <!-- Cantidad y Total -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">
+                    Cantidad <span class="text-danger">*</span>
+                </label>
+                <input type="number" name="cantidad" id="cantidad" class="form-control"
+                       value="{{ factura.cantidad if factura else 1 }}"
+                       min="1" required>
+                <small class="text-muted" id="stockInfo">Stock disponible: —</small>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Total:</label>
+                <input type="number" step="0.01" name="total" id="total"
+                       class="form-control" value="{{ factura.total if factura else '' }}" readonly>
+                <small class="text-muted">Se calcula automáticamente.</small>
+            </div>
         </div>
+
         <div class="mb-3">
             <label class="form-label">Estado:</label>
             <select name="estado" class="form-control">
                 <option value="Pagada" {% if factura and factura.estado == 'Pagada' %}selected{% endif %}>Pagada</option>
-                <option value="Pendiente" {% if factura and factura.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                <option value="Pendiente" {% if not factura or factura.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
                 <option value="Anulada" {% if factura and factura.estado == 'Anulada' %}selected{% endif %}>Anulada</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{{ url_for('factura_form.facturacion') }}" class="btn btn-secondary">Cancelar</a>
+
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-save me-2"></i> Guardar
+        </button>
+        <a href="{{ url_for('factura_form.facturacion') }}" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i> Cancelar
+        </a>
     </form>
 </div>
+
+<script>
+    const selectProducto = document.getElementById('producto_id');
+    const inputCantidad = document.getElementById('cantidad');
+    const inputTotal = document.getElementById('total');
+    const stockInfo = document.getElementById('stockInfo');
+
+    function actualizarTotal() {
+        const opcion = selectProducto.options[selectProducto.selectedIndex];
+        const precio = parseFloat(opcion.getAttribute('data-precio')) || 0;
+        const stock = parseInt(opcion.getAttribute('data-stock')) || 0;
+        const cantidad = parseInt(inputCantidad.value) || 0;
+
+        // Calcular total
+        inputTotal.value = (precio * cantidad).toFixed(2);
+
+        // Actualizar máximo permitido por stock
+        if (stock > 0) {
+            inputCantidad.max = stock;
+            stockInfo.textContent = `Stock disponible: ${stock} unidades`;
+            stockInfo.className = cantidad > stock ? 'text-danger small fw-bold' : 'text-muted small';
+        } else {
+            inputCantidad.removeAttribute('max');
+            stockInfo.textContent = 'Stock disponible: —';
+            stockInfo.className = 'text-muted small';
+        }
+    }
+
+    selectProducto.addEventListener('change', actualizarTotal);
+    inputCantidad.addEventListener('input', actualizarTotal);
+
+    // Ejecutar al cargar (para modo edición)
+    actualizarTotal();
+</script>
 {% endblock %}

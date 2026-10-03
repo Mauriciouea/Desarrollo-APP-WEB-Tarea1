@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura {{ factura.numero }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background: #f5f7fa;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .factura-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .factura-header {
+            border-bottom: 3px solid #198754;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+        .factura-header h1 {
+            color: #198754;
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .empresa-info {
+            color: #6c757d;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .factura-titulo {
+            background: #198754;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .factura-numero {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+        }
+        .seccion-titulo {
+            font-weight: 700;
+            color: #198754;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tabla-detalle {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .tabla-detalle thead {
+            background: #198754;
+            color: white;
+        }
+        .tabla-detalle th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tabla-detalle td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #e9ecef;
+            color: #212529;
+            vertical-align: middle;
+        }
+        .tabla-detalle tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .tabla-detalle .col-precio {
+            text-align: right;
+            font-weight: 600;
+        }
+        .tabla-detalle .col-cantidad {
+            text-align: center;
+            width: 90px;
+        }
+        .info-linea {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .info-linea:last-child {
+            border-bottom: none;
+        }
+        .info-linea .label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .info-linea .valor {
+            color: #212529;
+            text-align: right;
+        }
+        .total-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #198754;
+        }
+        .total-box .label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #495057;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .total-box .valor {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #198754;
+        }
+        .badge-estado {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .factura-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+        .no-print {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .factura-container {
+                box-shadow: none;
+                padding: 20px;
+                max-width: 100%;
+                border-radius: 0;
+            }
+            .no-print { display: none !important; }
+            .total-box {
+                background: #f8f9fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .factura-titulo, .tabla-detalle thead {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+        <button onclick="window.print()" class="btn btn-success btn-lg">
+            <i class="bi bi-printer me-2"></i> Imprimir / Guardar como PDF
+        </button>
+        <a href="{{ url_for('factura_form.facturacion') }}" class="btn btn-secondary btn-lg">
+            <i class="bi bi-arrow-left me-2"></i> Volver
+        </a>
+    </div>
+
+    <div class="factura-container">
+
+        <!-- HEADER -->
+        <div class="factura-header d-flex justify-content-between align-items-start flex-wrap gap-3">
+            <div>
+                <h1><i class="bi bi-flower1 me-2"></i> Soluciones Digitales</h1>
+                <div class="empresa-info mt-2">
+                    <i class="bi bi-geo-alt-fill text-success me-1"></i> Guayaquil, Ecuador<br>
+                    <i class="bi bi-envelope-fill text-success me-1"></i> contacto@empresa4M.com<br>
+                    <i class="bi bi-telephone-fill text-success me-1"></i> +593 999 865 054
+                </div>
+            </div>
+            <div class="text-end">
+                <div class="factura-titulo">
+                    <i class="bi bi-file-earmark-text me-2"></i> FACTURA
+                </div>
+                <div class="factura-numero">N° {{ factura.numero }}</div>
+                <div class="empresa-info mt-1">
+                    <i class="bi bi-calendar-event me-1"></i> {{ factura.fecha }}
+                </div>
+                <div class="mt-2">
+                    <span class="badge-estado 
+                        {% if factura.estado == 'Pagada' %}bg-success text-white
+                        {% elif factura.estado == 'Pendiente' %}bg-warning text-dark
+                        {% else %}bg-danger text-white{% endif %}">
+                        {{ factura.estado }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATOS DEL CLIENTE -->
+        <div class="mb-4">
+            <div class="seccion-titulo">
+                <i class="bi bi-person-fill"></i> Datos del Cliente
+            </div>
+            <div class="info-linea">
+                <span class="label">Cliente:</span>
+                <span class="valor">{{ factura.cliente }}</span>
+            </div>
+        </div>
+
+        <!-- DETALLE DEL SERVICIO -->
+        <div class="mb-4">
+            <div class="seccion-titulo">
+                <i class="bi bi-list-check"></i> Detalle del Servicio
+            </div>
+            <table class="tabla-detalle">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th class="col-cantidad">Cantidad</th>
+                        <th class="col-precio">Precio Unit.</th>
+                        <th class="col-precio">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>{{ factura.detalle or (producto.nombre if producto else 'Sin descripción') }}</strong>
+                            {% if producto and producto.categoria %}
+                                <br><small class="text-muted">{{ producto.categoria }}</small>
+                            {% endif %}
+                        </td>
+                        <td class="col-cantidad">{{ factura.cantidad or 1 }}</td>
+                        <td class="col-precio">
+                            ${{ "%.2f"|format(factura.total / (factura.cantidad or 1)) }}
+                        </td>
+                        <td class="col-precio">
+                            <strong>${{ "%.2f"|format(factura.total) }}</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TOTAL -->
+        <div class="total-box">
+            <span class="label">TOTAL A PAGAR</span>
+            <span class="valor">${{ "%.2f"|format(factura.total) }}</span>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="factura-footer">
+            <p class="mb-1"><strong>¡Gracias por su preferencia!</strong></p>
+            <p class="mb-0">Este documento es un comprobante de pago generado electrónicamente.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
