@@ -1,15 +1,9 @@
 /**
- * ==============================================
  * SISTEMA DE ADMINISTRACIÓN - AUTENTICACIÓN + GESTIÓN DE SERVICIOS
- * ==============================================
- * 
- * Módulos:
- * 1. Autenticación (Login + Registro de Usuario)
- * 2. Gestión de Servicios (CRUD con validaciones)
  */
 
 // ==============================================
-// 1. DOM ELEMENTS - AUTENTICACIÓN
+// DOM ELEMENTS
 // ==============================================
 const btnIniciarSesion = document.getElementById('btnIniciarSesion');
 const btnRegistrarse = document.getElementById('btnRegistrarse');
@@ -19,9 +13,6 @@ const nombreUsuario = document.getElementById('nombreUsuario');
 const mensajeSesion = document.getElementById('mensajeSesion');
 const mensajeSesionTexto = document.getElementById('mensajeSesionTexto');
 
-// ==============================================
-// 2. DOM ELEMENTS - GESTIÓN DE SERVICIOS
-// ==============================================
 const formRegistro = document.getElementById('formRegistro');
 const nombreServicio = document.getElementById('nombreServicio');
 const descripcionServicio = document.getElementById('descripcionServicio');
@@ -30,23 +21,16 @@ const nombreContador = document.getElementById('nombreContador');
 const descripcionContador = document.getElementById('descripcionContador');
 const listaRegistros = document.getElementById('listaRegistros');
 const contadorRegistros = document.getElementById('contadorRegistros');
-const mensajeVacio = document.getElementById('mensajeVacio');
 const mensajeExito = document.getElementById('mensajeExito');
 const mensajeExitoTexto = document.getElementById('mensajeExitoTexto');
 const btnEliminarTodas = document.getElementById('btnEliminarTodas');
 
-// ==============================================
-// 3. DOM ELEMENTS - LOGIN
-// ==============================================
 const loginForm = document.getElementById('loginForm');
 const loginUsuario = document.getElementById('loginUsuario');
 const loginPassword = document.getElementById('loginPassword');
 const loginError = document.getElementById('loginError');
 const loginErrorTexto = document.getElementById('loginErrorTexto');
 
-// ==============================================
-// 4. DOM ELEMENTS - REGISTRO DE USUARIO
-// ==============================================
 const registroForm = document.getElementById('registroForm');
 const regUsuario = document.getElementById('regUsuario');
 const regEmail = document.getElementById('regEmail');
@@ -58,31 +42,36 @@ const regUsuarioContador = document.getElementById('regUsuarioContador');
 const registroExito = document.getElementById('registroExito');
 const registroExitoTexto = document.getElementById('registroExitoTexto');
 
-// Requisitos de contraseña
 const reqLongitud = document.getElementById('reqLongitud');
 const reqMayuscula = document.getElementById('reqMayuscula');
 const reqNumero = document.getElementById('reqNumero');
 const reqEspecial = document.getElementById('reqEspecial');
 
 // ==============================================
-// 5. ESTADO DE LA APLICACIÓN
+// ESTADO
 // ==============================================
 let servicios = [];
 let idCounter = 1;
-
-// Usuario actual (simulación)
-let usuarioActual = null;
-
-// Base de datos de usuarios (simulada)
-let usuarios = [];
+let usuarioActual = JSON.parse(localStorage.getItem('usuarioActivo')) || null;
+let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
 // ==============================================
-// 6. GESTIÓN DE AUTENTICACIÓN
+// AUTENTICACIÓN
 // ==============================================
 
-/**
- * Inicia sesión del usuario
- */
+function mostrarBotonDashboard(mostrar) {
+    const btnDashboard = document.getElementById('btnDashboard');
+    if (!btnDashboard) return;
+    if (mostrar) btnDashboard.classList.remove('d-none');
+    else btnDashboard.classList.add('d-none');
+}
+
+function bloquearFormularioServicios(bloquear) {
+    if (!formRegistro) return;
+    formRegistro.querySelectorAll('input, textarea, select, button')
+        .forEach(el => el.disabled = bloquear);
+}
+
 function iniciarSesion(usuario, password) {
     const usuarioEncontrado = usuarios.find(u =>
         u.usuario === usuario && u.password === password
@@ -90,23 +79,21 @@ function iniciarSesion(usuario, password) {
 
     if (usuarioEncontrado) {
         usuarioActual = usuarioEncontrado;
+        localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActual));
+
         nombreUsuario.textContent = usuarioEncontrado.nombreCompleto || usuarioEncontrado.usuario;
-        
-        // Ocultar mensaje de sesión
         mensajeSesion.classList.add('d-none');
-        
-        // Mostrar botón cerrar sesión
         btnIniciarSesion.classList.add('d-none');
         btnRegistrarse.classList.add('d-none');
         btnCerrarSesionContainer.classList.remove('d-none');
-        
-        // Cerrar modal
+
+        mostrarBotonDashboard(true);
+        bloquearFormularioServicios(false);
+
         const modalLogin = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
         if (modalLogin) modalLogin.hide();
-        
-        // Limpiar errores
+
         loginError.classList.add('d-none');
-        
         return true;
     } else {
         loginErrorTexto.textContent = 'Usuario o contraseña incorrectos.';
@@ -115,33 +102,28 @@ function iniciarSesion(usuario, password) {
     }
 }
 
-/**
- * Cierra sesión del usuario
- */
 function cerrarSesion() {
     if (confirm('¿Estás seguro de cerrar sesión?')) {
         usuarioActual = null;
+        localStorage.removeItem('usuarioActivo');
         nombreUsuario.textContent = 'Invitado';
-        
+
         btnIniciarSesion.classList.remove('d-none');
         btnRegistrarse.classList.remove('d-none');
         btnCerrarSesionContainer.classList.add('d-none');
-        
-        // Mostrar mensaje de sesión
+
+        mostrarBotonDashboard(false);
+
         mensajeSesionTexto.textContent = 'Debes iniciar sesión para gestionar servicios.';
         mensajeSesion.classList.remove('d-none');
-        
-        // Limpiar servicios del usuario
+
         servicios = [];
         renderizarServicios();
+        bloquearFormularioServicios(true);
     }
 }
 
-/**
- * Registra un nuevo usuario
- */
 function registrarUsuario(usuario, email, nombreCompleto, telefono, password) {
-    // Verificar si el usuario ya existe
     if (usuarios.find(u => u.usuario === usuario)) {
         registroExitoTexto.textContent = '⚠️ El nombre de usuario ya está en uso.';
         registroExito.className = 'alert alert-danger mt-3';
@@ -149,7 +131,6 @@ function registrarUsuario(usuario, email, nombreCompleto, telefono, password) {
         return false;
     }
 
-    // Verificar si el email ya está registrado
     if (usuarios.find(u => u.email === email)) {
         registroExitoTexto.textContent = '⚠️ El correo electrónico ya está registrado.';
         registroExito.className = 'alert alert-danger mt-3';
@@ -157,36 +138,23 @@ function registrarUsuario(usuario, email, nombreCompleto, telefono, password) {
         return false;
     }
 
-    // Crear nuevo usuario
-    const nuevoUsuario = {
-        usuario,
-        email,
-        nombreCompleto,
-        telefono: telefono || '',
-        password
-    };
-
+    const nuevoUsuario = { usuario, email, nombreCompleto, telefono: telefono || '', password };
     usuarios.push(nuevoUsuario);
-    
-    // Mostrar mensaje de éxito
-    registroExitoTexto.textContent = `✅ Perfil creado exitosamente. ¡Bienvenido ${nombreCompleto}!`;
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+    registroExitoTexto.textContent = `✅ Perfil creado exitosamente. ¡Bienvenido ${nombreCompleto}! Ya puedes iniciar sesión.`;
     registroExito.className = 'alert alert-success mt-3';
     registroExito.classList.remove('d-none');
-    
-    // Limpiar formulario
+
     registroForm.reset();
     limpiarValidacionesRegistro();
-    
     return true;
 }
 
 // ==============================================
-// 7. VALIDACIONES DEL FORMULARIO DE SERVICIOS
+// VALIDACIONES SERVICIOS
 // ==============================================
 
-/**
- * Valida un campo específico
- */
 function validarCampo(input, tipo, valor, feedbackElement) {
     let esValido = false;
     let mensaje = '';
@@ -194,36 +162,23 @@ function validarCampo(input, tipo, valor, feedbackElement) {
     switch (tipo) {
         case 'nombre':
             const nombreTrim = valor.trim();
-            if (nombreTrim.length === 0) {
-                mensaje = 'El nombre del servicio es obligatorio.';
-            } else if (nombreTrim.length < 3) {
-                mensaje = 'El nombre debe tener al menos 3 caracteres.';
-            } else if (nombreTrim.length > 50) {
-                mensaje = 'El nombre no puede exceder los 50 caracteres.';
-            } else {
-                esValido = true;
-            }
+            if (nombreTrim.length === 0) mensaje = 'El nombre del servicio es obligatorio.';
+            else if (nombreTrim.length < 3) mensaje = 'El nombre debe tener al menos 3 caracteres.';
+            else if (nombreTrim.length > 50) mensaje = 'El nombre no puede exceder los 50 caracteres.';
+            else esValido = true;
             break;
 
         case 'descripcion':
             const descTrim = valor.trim();
-            if (descTrim.length === 0) {
-                mensaje = 'La descripción es obligatoria.';
-            } else if (descTrim.length < 10) {
-                mensaje = 'La descripción debe tener al menos 10 caracteres.';
-            } else if (descTrim.length > 200) {
-                mensaje = 'La descripción no puede exceder los 200 caracteres.';
-            } else {
-                esValido = true;
-            }
+            if (descTrim.length === 0) mensaje = 'La descripción es obligatoria.';
+            else if (descTrim.length < 10) mensaje = 'La descripción debe tener al menos 10 caracteres.';
+            else if (descTrim.length > 200) mensaje = 'La descripción no puede exceder los 200 caracteres.';
+            else esValido = true;
             break;
 
         case 'categoria':
-            if (!valor || valor === '') {
-                mensaje = 'Debes seleccionar una categoría.';
-            } else {
-                esValido = true;
-            }
+            if (!valor || valor === '') mensaje = 'Debes seleccionar una categoría.';
+            else esValido = true;
             break;
 
         default:
@@ -233,9 +188,7 @@ function validarCampo(input, tipo, valor, feedbackElement) {
     if (esValido) {
         input.classList.remove('is-invalid');
         input.classList.add('is-valid');
-        if (feedbackElement) {
-            feedbackElement.style.display = 'none';
-        }
+        if (feedbackElement) feedbackElement.style.display = 'none';
     } else {
         input.classList.remove('is-valid');
         input.classList.add('is-invalid');
@@ -248,9 +201,6 @@ function validarCampo(input, tipo, valor, feedbackElement) {
     return esValido;
 }
 
-/**
- * Actualiza contadores de caracteres
- */
 function actualizarContadores() {
     const nombreLength = nombreServicio.value.length;
     const descLength = descripcionServicio.value.length;
@@ -266,41 +216,17 @@ function actualizarContadores() {
     else if (descLength >= 10) descripcionContador.classList.add('success');
 }
 
-/**
- * Valida todo el formulario de servicios
- */
 function validarFormularioCompleto() {
-    const nombreValido = validarCampo(
-        nombreServicio,
-        'nombre',
-        nombreServicio.value,
-        document.getElementById('nombreFeedback')
-    );
-
-    const descripcionValido = validarCampo(
-        descripcionServicio,
-        'descripcion',
-        descripcionServicio.value,
-        document.getElementById('descripcionFeedback')
-    );
-
-    const categoriaValido = validarCampo(
-        categoriaServicio,
-        'categoria',
-        categoriaServicio.value,
-        document.getElementById('categoriaFeedback')
-    );
-
+    const nombreValido = validarCampo(nombreServicio, 'nombre', nombreServicio.value, document.getElementById('nombreFeedback'));
+    const descripcionValido = validarCampo(descripcionServicio, 'descripcion', descripcionServicio.value, document.getElementById('descripcionFeedback'));
+    const categoriaValido = validarCampo(categoriaServicio, 'categoria', categoriaServicio.value, document.getElementById('categoriaFeedback'));
     return nombreValido && descripcionValido && categoriaValido;
 }
 
 // ==============================================
-// 8. GESTIÓN DE SERVICIOS (CRUD)
+// CRUD SERVICIOS
 // ==============================================
 
-/**
- * Renderiza la lista de servicios
- */
 function renderizarServicios(filtro = 'todas') {
     const serviciosFiltrados = filtro === 'todas'
         ? servicios
@@ -324,12 +250,8 @@ function renderizarServicios(filtro = 'todas') {
     let html = '';
     serviciosFiltrados.forEach((servicio) => {
         const categoriaColors = {
-            'Desarrollo': 'primary',
-            'Diseño': 'info',
-            'Infraestructura': 'warning',
-            'Seguridad': 'danger',
-            'Consultoría': 'success',
-            'Otro': 'secondary'
+            'Desarrollo': 'primary', 'Diseño': 'info', 'Infraestructura': 'warning',
+            'Seguridad': 'danger', 'Consultoría': 'success', 'Otro': 'secondary'
         };
         const color = categoriaColors[servicio.categoria] || 'secondary';
 
@@ -341,9 +263,7 @@ function renderizarServicios(filtro = 'todas') {
                         <span class="badge bg-${color} badge-categoria">${servicio.categoria}</span>
                     </div>
                     <div class="text-muted small">${escapeHTML(servicio.descripcion)}</div>
-                    <div class="text-muted small mt-1">
-                        <i class="bi bi-clock"></i> ${servicio.fecha}
-                    </div>
+                    <div class="text-muted small mt-1"><i class="bi bi-clock"></i> ${servicio.fecha}</div>
                 </div>
                 <button class="btn-eliminar ms-2" data-id="${servicio.id}" title="Eliminar servicio">
                     <i class="bi bi-trash3"></i>
@@ -354,7 +274,6 @@ function renderizarServicios(filtro = 'todas') {
 
     listaRegistros.innerHTML = html;
 
-    // Eventos para botones eliminar
     document.querySelectorAll('.btn-eliminar').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
@@ -364,20 +283,13 @@ function renderizarServicios(filtro = 'todas') {
     });
 }
 
-/**
- * Escapa caracteres especiales
- */
 function escapeHTML(texto) {
     const div = document.createElement('div');
     div.textContent = texto;
     return div.innerHTML;
 }
 
-/**
- * Agrega un nuevo servicio
- */
 function agregarServicio(nombre, descripcion, categoria) {
-    // Verificar si hay sesión iniciada
     if (!usuarioActual) {
         mensajeSesionTexto.textContent = '⚠️ Debes iniciar sesión para agregar servicios.';
         mensajeSesion.classList.remove('d-none');
@@ -390,11 +302,8 @@ function agregarServicio(nombre, descripcion, categoria) {
         descripcion: descripcion.trim(),
         categoria: categoria,
         fecha: new Date().toLocaleString('es-ES', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
         })
     };
 
@@ -402,21 +311,15 @@ function agregarServicio(nombre, descripcion, categoria) {
     renderizarServicios();
     actualizarContadores();
 
-    // Mostrar mensaje de éxito
     mensajeExitoTexto.textContent = `"${nuevoServicio.nombre}" registrado correctamente.`;
+    mensajeExito.className = 'alert alert-success mt-3';
     mensajeExito.classList.remove('d-none');
-    setTimeout(() => {
-        mensajeExito.classList.add('d-none');
-    }, 4000);
+    setTimeout(() => mensajeExito.classList.add('d-none'), 4000);
 
-    // Limpiar formulario
     limpiarFormulario();
     return true;
 }
 
-/**
- * Elimina un servicio por ID
- */
 function eliminarServicio(id) {
     if (!usuarioActual) {
         mensajeSesionTexto.textContent = '⚠️ Debes iniciar sesión para eliminar servicios.';
@@ -439,9 +342,6 @@ function eliminarServicio(id) {
     }
 }
 
-/**
- * Elimina todos los servicios
- */
 function eliminarTodosServicios() {
     if (!usuarioActual) {
         mensajeSesionTexto.textContent = '⚠️ Debes iniciar sesión para eliminar servicios.';
@@ -464,34 +364,25 @@ function eliminarTodosServicios() {
     }
 }
 
-/**
- * Limpia el formulario y los estados de validación
- */
 function limpiarFormulario() {
     formRegistro.reset();
     nombreServicio.classList.remove('is-valid', 'is-invalid');
     descripcionServicio.classList.remove('is-valid', 'is-invalid');
     categoriaServicio.classList.remove('is-valid', 'is-invalid');
-    document.querySelectorAll('#formRegistro .invalid-feedback, #formRegistro .valid-feedback').forEach(el => {
-        el.style.display = 'none';
-    });
+    document.querySelectorAll('#formRegistro .invalid-feedback, #formRegistro .valid-feedback').forEach(el => el.style.display = 'none');
     actualizarContadores();
 }
 
 // ==============================================
-// 9. VALIDACIONES DE REGISTRO DE USUARIO
+// VALIDACIONES REGISTRO USUARIO
 // ==============================================
 
-/**
- * Valida la contraseña y muestra los requisitos
- */
 function validarPassword(password) {
     const tieneLongitud = password.length >= 8;
     const tieneMayuscula = /[A-Z]/.test(password);
     const tieneNumero = /[0-9]/.test(password);
-    const tieneEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const tieneEspecial = /[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\/;']/.test(password);
 
-    // Actualizar requisitos visuales
     actualizarRequisito(reqLongitud, tieneLongitud, 'Mínimo 8 caracteres');
     actualizarRequisito(reqMayuscula, tieneMayuscula, 'Al menos 1 letra mayúscula');
     actualizarRequisito(reqNumero, tieneNumero, 'Al menos 1 número');
@@ -501,35 +392,30 @@ function validarPassword(password) {
 }
 
 function actualizarRequisito(elemento, cumple, texto) {
-    const icono = cumple ? 'bi-check-circle-fill' : 'bi-circle';
-    const clase = cumple ? 'cumplido' : 'incumplido';
-    elemento.className = clase;
-    elemento.innerHTML = `<i class="bi ${icono}"></i> ${texto}`;
+    if (!elemento) return;
+    if (cumple) {
+        elemento.className = 'text-success cumplido';
+        elemento.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${texto}`;
+    } else {
+        elemento.className = 'text-muted incumplido';
+        elemento.innerHTML = `<i class="bi bi-circle"></i> ${texto}`;
+    }
 }
 
-/**
- * Limpia validaciones del registro
- */
 function limpiarValidacionesRegistro() {
-    document.querySelectorAll('#registroForm .form-control').forEach(el => {
-        el.classList.remove('is-valid', 'is-invalid');
-    });
-    document.querySelectorAll('#registroForm .invalid-feedback, #registroForm .valid-feedback').forEach(el => {
-        el.style.display = 'none';
-    });
-    // Resetear requisitos de contraseña
-    [reqLongitud, reqMayuscula, reqNumero, reqEspecial].forEach(el => {
-        el.className = 'text-muted';
-        el.innerHTML = `<i class="bi bi-circle"></i> ${el.textContent.trim()}`;
-    });
+    document.querySelectorAll('#registroForm .form-control').forEach(el => el.classList.remove('is-valid', 'is-invalid'));
+    document.querySelectorAll('#registroForm .invalid-feedback, #registroForm .valid-feedback').forEach(el => el.style.display = 'none');
+    actualizarRequisito(reqLongitud, false, 'Mínimo 8 caracteres');
+    actualizarRequisito(reqMayuscula, false, 'Al menos 1 letra mayúscula');
+    actualizarRequisito(reqNumero, false, 'Al menos 1 número');
+    actualizarRequisito(reqEspecial, false, 'Al menos 1 carácter especial (@, #, $, %, etc.)');
 }
 
 // ==============================================
-// 10. EVENTOS
+// EVENTOS
 // ==============================================
 
-// --- Eventos de Autenticación ---
-btnIniciarSesion.addEventListener('click', () => {
+if (btnIniciarSesion) btnIniciarSesion.addEventListener('click', () => {
     const modal = new bootstrap.Modal(document.getElementById('modalLogin'));
     modal.show();
     loginError.classList.add('d-none');
@@ -538,7 +424,7 @@ btnIniciarSesion.addEventListener('click', () => {
     loginPassword.classList.remove('is-invalid');
 });
 
-btnRegistrarse.addEventListener('click', () => {
+if (btnRegistrarse) btnRegistrarse.addEventListener('click', () => {
     const modal = new bootstrap.Modal(document.getElementById('modalRegistro'));
     modal.show();
     registroExito.classList.add('d-none');
@@ -546,14 +432,12 @@ btnRegistrarse.addEventListener('click', () => {
     limpiarValidacionesRegistro();
 });
 
-btnCerrarSesion.addEventListener('click', cerrarSesion);
+if (btnCerrarSesion) btnCerrarSesion.addEventListener('click', cerrarSesion);
 
-// --- Evento: Login ---
-loginForm.addEventListener('submit', function(e) {
+if (loginForm) loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const usuario = loginUsuario.value.trim();
     const password = loginPassword.value.trim();
-
     let valido = true;
 
     if (!usuario) {
@@ -574,13 +458,10 @@ loginForm.addEventListener('submit', function(e) {
         document.getElementById('loginPasswordFeedback').style.display = 'none';
     }
 
-    if (valido) {
-        iniciarSesion(usuario, password);
-    }
+    if (valido) iniciarSesion(usuario, password);
 });
 
-// --- Evento: Registro de Usuario ---
-registroForm.addEventListener('submit', function(e) {
+if (registroForm) registroForm.addEventListener('submit', function(e) {
     e.preventDefault();
 
     const usuario = regUsuario.value.trim();
@@ -592,7 +473,6 @@ registroForm.addEventListener('submit', function(e) {
 
     let valido = true;
 
-    // Validar usuario
     if (usuario.length < 3) {
         regUsuario.classList.add('is-invalid');
         document.getElementById('regUsuarioFeedback').style.display = 'block';
@@ -603,7 +483,6 @@ registroForm.addEventListener('submit', function(e) {
         document.getElementById('regUsuarioFeedback').style.display = 'none';
     }
 
-    // Validar email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         regEmail.classList.add('is-invalid');
@@ -615,7 +494,6 @@ registroForm.addEventListener('submit', function(e) {
         document.getElementById('regEmailFeedback').style.display = 'none';
     }
 
-    // Validar nombre
     if (nombre.length < 3) {
         regNombre.classList.add('is-invalid');
         document.getElementById('regNombreFeedback').style.display = 'block';
@@ -626,7 +504,6 @@ registroForm.addEventListener('submit', function(e) {
         document.getElementById('regNombreFeedback').style.display = 'none';
     }
 
-    // Validar contraseña
     const passwordValida = validarPassword(password);
     if (!passwordValida) {
         regPassword.classList.add('is-invalid');
@@ -638,7 +515,6 @@ registroForm.addEventListener('submit', function(e) {
         document.getElementById('regPasswordFeedback').style.display = 'none';
     }
 
-    // Validar confirmación de contraseña
     if (password !== passwordConfirm || passwordConfirm.length === 0) {
         regPasswordConfirm.classList.add('is-invalid');
         document.getElementById('regPasswordConfirmFeedback').style.display = 'block';
@@ -649,16 +525,12 @@ registroForm.addEventListener('submit', function(e) {
         document.getElementById('regPasswordConfirmFeedback').style.display = 'none';
     }
 
-    if (valido) {
-        registrarUsuario(usuario, email, nombre, telefono, password);
-    }
+    if (valido) registrarUsuario(usuario, email, nombre, telefono, password);
 });
 
-// --- Eventos del formulario de servicios ---
-formRegistro.addEventListener('submit', function(e) {
+if (formRegistro) formRegistro.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Verificar sesión
     if (!usuarioActual) {
         mensajeSesionTexto.textContent = '⚠️ Debes iniciar sesión para agregar servicios.';
         mensajeSesion.classList.remove('d-none');
@@ -666,10 +538,7 @@ formRegistro.addEventListener('submit', function(e) {
     }
 
     if (validarFormularioCompleto()) {
-        const nombre = nombreServicio.value;
-        const descripcion = descripcionServicio.value;
-        const categoria = categoriaServicio.value;
-        agregarServicio(nombre, descripcion, categoria);
+        agregarServicio(nombreServicio.value, descripcionServicio.value, categoriaServicio.value);
     } else {
         mensajeExitoTexto.textContent = 'Corrige los errores en el formulario.';
         mensajeExito.classList.remove('d-none');
@@ -681,54 +550,35 @@ formRegistro.addEventListener('submit', function(e) {
     }
 });
 
-// Validaciones en tiempo real (input, blur)
-nombreServicio.addEventListener('input', function() {
+if (nombreServicio) nombreServicio.addEventListener('input', function() {
     validarCampo(this, 'nombre', this.value, document.getElementById('nombreFeedback'));
     actualizarContadores();
 });
 
-nombreServicio.addEventListener('blur', function() {
-    validarCampo(this, 'nombre', this.value, document.getElementById('nombreFeedback'));
-    actualizarContadores();
-});
-
-descripcionServicio.addEventListener('input', function() {
+if (descripcionServicio) descripcionServicio.addEventListener('input', function() {
     validarCampo(this, 'descripcion', this.value, document.getElementById('descripcionFeedback'));
     actualizarContadores();
 });
 
-descripcionServicio.addEventListener('blur', function() {
-    validarCampo(this, 'descripcion', this.value, document.getElementById('descripcionFeedback'));
-    actualizarContadores();
-});
-
-categoriaServicio.addEventListener('change', function() {
+if (categoriaServicio) categoriaServicio.addEventListener('change', function() {
     validarCampo(this, 'categoria', this.value, document.getElementById('categoriaFeedback'));
 });
 
-// --- Evento: reset del formulario ---
-formRegistro.addEventListener('reset', function(e) {
-    setTimeout(() => {
-        limpiarFormulario();
-        mensajeExito.classList.add('d-none');
-    }, 50);
+if (formRegistro) formRegistro.addEventListener('reset', function() {
+    setTimeout(() => { limpiarFormulario(); mensajeExito.classList.add('d-none'); }, 50);
 });
 
-// --- Filtros por categoría ---
 document.querySelectorAll('[data-filtro]').forEach(btn => {
     btn.addEventListener('click', function() {
         document.querySelectorAll('[data-filtro]').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        const filtro = this.dataset.filtro;
-        renderizarServicios(filtro);
+        renderizarServicios(this.dataset.filtro);
     });
 });
 
-// --- Botón eliminar todas ---
-btnEliminarTodas.addEventListener('click', eliminarTodosServicios);
+if (btnEliminarTodas) btnEliminarTodas.addEventListener('click', eliminarTodosServicios);
 
-// --- Validaciones de registro en tiempo real ---
-regUsuario.addEventListener('input', function() {
+if (regUsuario) regUsuario.addEventListener('input', function() {
     if (this.value.length >= 3) {
         this.classList.remove('is-invalid');
         this.classList.add('is-valid');
@@ -743,7 +593,7 @@ regUsuario.addEventListener('input', function() {
     regUsuarioContador.textContent = `${this.value.length} / 20 caracteres`;
 });
 
-regEmail.addEventListener('input', function() {
+if (regEmail) regEmail.addEventListener('input', function() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegex.test(this.value)) {
         this.classList.remove('is-invalid');
@@ -758,7 +608,7 @@ regEmail.addEventListener('input', function() {
     }
 });
 
-regNombre.addEventListener('input', function() {
+if (regNombre) regNombre.addEventListener('input', function() {
     if (this.value.length >= 3) {
         this.classList.remove('is-invalid');
         this.classList.add('is-valid');
@@ -772,7 +622,7 @@ regNombre.addEventListener('input', function() {
     }
 });
 
-regPassword.addEventListener('input', function() {
+if (regPassword) regPassword.addEventListener('input', function() {
     validarPassword(this.value);
     if (validarPassword(this.value)) {
         this.classList.remove('is-invalid');
@@ -785,7 +635,6 @@ regPassword.addEventListener('input', function() {
             document.getElementById('regPasswordFeedback').style.display = 'block';
         }
     }
-    // Verificar coincidencia si ya hay algo en confirmación
     if (regPasswordConfirm.value.length > 0) {
         if (this.value === regPasswordConfirm.value) {
             regPasswordConfirm.classList.remove('is-invalid');
@@ -799,7 +648,7 @@ regPassword.addEventListener('input', function() {
     }
 });
 
-regPasswordConfirm.addEventListener('input', function() {
+if (regPasswordConfirm) regPasswordConfirm.addEventListener('input', function() {
     if (this.value === regPassword.value && this.value.length > 0) {
         this.classList.remove('is-invalid');
         this.classList.add('is-valid');
@@ -814,36 +663,60 @@ regPasswordConfirm.addEventListener('input', function() {
 });
 
 // ==============================================
-// 11. INICIALIZACIÓN
+// INICIALIZACIÓN
 // ==============================================
-function init() {
-    // Inicializar contadores
-    actualizarContadores();
-    
-    // Renderizar servicios (vacío al inicio)
-    renderizarServicios();
-    
-    // Mostrar mensaje de sesión si no hay usuario
-    if (!usuarioActual) {
-        mensajeSesionTexto.textContent = 'Debes iniciar sesión para gestionar servicios.';
-        mensajeSesion.classList.remove('d-none');
+
+function hacerScrollASeccion() {
+    let destino = null;
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('scroll')) destino = params.get('scroll');
+
+    if (!destino && window.location.hash) destino = window.location.hash.replace('#', '');
+
+    if (destino === 'servicios' || destino === 'registros') {
+        const seccion = document.getElementById(destino);
+        if (seccion) {
+            setTimeout(() => {
+                seccion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                console.log(`📍 Scroll a #${destino} ejecutado`);
+            }, 300);
+        }
     }
-    
-    console.log('📋 Sistema de Administración inicializado correctamente.');
-    console.log('💡 Características:');
-    console.log('   ✅ Autenticación (Login + Registro)');
-    console.log('   ✅ Validaciones en tiempo real (input, blur)');
-    console.log('   ✅ Campos obligatorios con longitud mínima');
-    console.log('   ✅ Contraseña: 8 caracteres, mayúscula, número, especial');
-    console.log('   ✅ Mensajes dinámicos de error/éxito');
-    console.log('   ✅ Clases Bootstrap is-valid / is-invalid');
-    console.log('   ✅ CRUD completo: Crear, Mostrar, Contar, Eliminar');
-    console.log('   ✅ Filtros por categoría');
-    console.log(`   📌 ${servicios.length} servicios cargados.`);
-    console.log(`   👤 Usuarios registrados: ${usuarios.length}`);
 }
 
-// Iniciar aplicación cuando el DOM esté listo
+function init() {
+    if (actualizarContadores) actualizarContadores();
+    if (renderizarServicios) renderizarServicios();
+
+    if (usuarioActual) {
+        nombreUsuario.textContent = usuarioActual.nombreCompleto || usuarioActual.usuario;
+        btnIniciarSesion.classList.add('d-none');
+        btnRegistrarse.classList.add('d-none');
+        btnCerrarSesionContainer.classList.remove('d-none');
+        mensajeSesion.classList.add('d-none');
+        mostrarBotonDashboard(true);
+        bloquearFormularioServicios(false);
+    } else {
+        mensajeSesionTexto.textContent = 'Debes iniciar sesión para gestionar servicios.';
+        mensajeSesion.classList.remove('d-none');
+        mostrarBotonDashboard(false);
+        bloquearFormularioServicios(true);
+    }
+
+    hacerScrollASeccion();
+
+    const fechaActual = document.getElementById('fechaActual');
+    if (fechaActual) {
+        fechaActual.textContent = new Date().toLocaleDateString('es-ES', {
+            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+        });
+    }
+
+    console.log('📋 Sistema inicializado.');
+    console.log(`👤 Usuario: ${usuarioActual ? usuarioActual.nombreCompleto : 'Invitado'}`);
+}
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row g-4">
+        <!-- Card: Productos -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card border-0 shadow-sm h-100 text-center card-service">
+                <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                    <div class="icon-circle mb-3" style="background: #cce5ff; color: #004085;">
+                        <i class="bi bi-box-seam fs-1"></i>
+                    </div>
+                    <h5 class="card-title">Productos</h5>
+                    <p class="card-text small">Gestiona tu inventario</p>
+                    <a href="{{ url_for('producto_form.productos') }}" class="btn btn-primary btn-sm w-100 mt-2">
+                        <i class="bi bi-arrow-right me-1"></i> Acceder
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Clientes -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card border-0 shadow-sm h-100 text-center card-service">
+                <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                    <div class="icon-circle mb-3" style="background: #d1ecf1; color: #0c5460;">
+                        <i class="bi bi-people fs-1"></i>
+                    </div>
+                    <h5 class="card-title">Clientes</h5>
+                    <p class="card-text small">Administra tu cartera</p>
+                    <a href="{{ url_for('cliente_form.clientes') }}" class="btn btn-info btn-sm w-100 mt-2 text-white">
+                        <i class="bi bi-arrow-right me-1"></i> Acceder
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Proveedores -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card border-0 shadow-sm h-100 text-center card-service">
+                <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                    <div class="icon-circle mb-3" style="background: #fff3cd; color: #856404;">
+                        <i class="bi bi-truck fs-1"></i>
+                    </div>
+                    <h5 class="card-title">Proveedores</h5>
+                    <p class="card-text small">Controla tus proveedores</p>
+                    <a href="{{ url_for('proveedor_form.proveedores') }}" class="btn btn-warning btn-sm w-100 mt-2">
+                        <i class="bi bi-arrow-right me-1"></i> Acceder
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Facturación -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card border-0 shadow-sm h-100 text-center card-service">
+                <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                    <div class="icon-circle mb-3" style="background: #f8d7da; color: #721c24;">
+                        <i class="bi bi-file-earmark-text fs-1"></i>
+                    </div>
+                    <h5 class="card-title">Facturación</h5>
+                    <p class="card-text small">Emite y administra facturas</p>
+                    <a href="{{ url_for('factura_form.facturacion') }}" class="btn btn-danger btn-sm w-100 mt-2">
+                        <i class="bi bi-arrow-right me-1"></i> Acceder
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

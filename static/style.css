@@ -395,7 +395,7 @@ small.text-muted.success {
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 8px 25px rgba(7, 0, 0, 0.055) !important;
 }
 
 .badge {
@@ -548,4 +548,30 @@ section > .text-center .badge {
     color: #ffffff !important;
     border: 1px solid rgba(255, 255, 255, 0.35);
     backdrop-filter: blur(4px);
+}
+/* Requisitos de contraseña */
+#passwordRequisitos > div {
+    transition: color 0.2s ease;
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+}
+
+.cumplido {
+    color: #198754 !important;
+    font-weight: 500;
+}
+
+.incumplido {
+    color: #6c757d !important;
+}
+
+/* Animación del visto verde */
+.cumplido i {
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
 }

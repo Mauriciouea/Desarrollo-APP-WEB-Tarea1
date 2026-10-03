@@ -27,10 +27,20 @@ def index():
 
 
 # 📊 Dashboard
-@app.route("/dashboard")
+@app.route('/')
+def index_redirect():
+    return render_template('index.html')
+
+@app.route('/dashboard')
 def dashboard():
-    return render_template("dashboard.html")
+    return render_template('dashboard.html')
 
 
-if __name__ == "__main__":
+# 🧩 Menú de gestión (4 cards)
+@app.route('/menu')
+def menu():
+    return render_template('menu.html')
+
+
+if __name__ == '__main__':
     app.run(debug=True)
